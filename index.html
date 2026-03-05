@@ -1,197 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sachin Chauhan | EDI Developer</title>
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sachin Chauhan | EDI Portfolio</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --bg-soft: #171a1f;
+      --panel: #1e232b;
+      --panel-2: #252b35;
+      --text: #f2f3f5;
+      --muted: #b8bec7;
+      --line: #3a4250;
+      --accent: #9ca3af;
+      --accent-strong: #d1d5db;
+      --ok: #b4b9c3;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
 
-<style>
+    * {
+      box-sizing: border-box;
+    }
 
-body{
-    font-family: Arial, sans-serif;
-    margin:0;
-    background:#f4f6f8;
-    color:#333;
-}
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(180deg, #0f1115 0%, #141820 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
 
-header{
-    background:#1f2937;
-    color:white;
-    padding:40px;
-    text-align:center;
-}
+    a {
+      color: var(--accent-strong);
+      text-decoration: none;
+    }
 
-header h1{
-    margin:0;
-    font-size:36px;
-}
+    a:hover {
+      text-decoration: underline;
+    }
 
-header p{
-    margin-top:10px;
-    font-size:18px;
-}
+    .hero {
+      border-bottom: 1px solid var(--line);
+      background: radial-gradient(circle at top right, #2a313d 0%, #161a22 45%, #0f1115 100%);
+      padding: 64px 20px 50px;
+    }
 
-.container{
-    width:85%;
-    margin:auto;
-    padding:30px 0;
-}
+    .wrap {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-section{
-    margin-bottom:40px;
-}
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
 
-h2{
-    border-left:5px solid #2563eb;
-    padding-left:10px;
-}
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: 0.5px;
+    }
 
-.skills span{
-    background:#e5e7eb;
-    padding:8px 12px;
-    margin:5px;
-    display:inline-block;
-    border-radius:6px;
-}
+    .subtitle {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 1.08rem;
+    }
 
-.project{
-    background:white;
-    padding:20px;
-    border-radius:8px;
-    margin-top:15px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
+    .intro {
+      margin-top: 18px;
+      color: #e4e7ec;
+      max-width: 670px;
+    }
 
-footer{
-    text-align:center;
-    padding:20px;
-    background:#111827;
-    color:white;
-}
+    .stats {
+      background: rgba(31, 36, 45, 0.9);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
 
-</style>
+    .stats h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .stats ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .stats li {
+      padding: 8px 0;
+      border-bottom: 1px dashed #3b4452;
+      color: #dde1e7;
+    }
+
+    .stats li:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    main {
+      padding: 34px 0 56px;
+    }
+
+    section {
+      margin-bottom: 28px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.3rem;
+      color: var(--accent-strong);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, #e5e7eb, #7b8491);
+      box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.2);
+    }
+
+    .chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border: 1px solid #566071;
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: #e6e9ee;
+      font-size: 0.92rem;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #202631;
+      border: 1px solid #424c5e;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      color: #f4f6f8;
+    }
+
+    ul {
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+
+    .edi-reader {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 16px;
+    }
+
+    .reader-panel {
+      background: #151922;
+      border: 1px solid #3d4758;
+      border-radius: 10px;
+      padding: 14px;
+      overflow: auto;
+    }
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #d8dde5;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .kpi-list li {
+      margin-bottom: 6px;
+    }
+
+    footer {
+      text-align: center;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      padding: 18px;
+      background: #12161d;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid,
+      .grid-two,
+      .edi-reader {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-<h1>Sachin Chauhan</h1>
-<p>EDI Developer | ANSI X12 | B2B Integration</p>
-</header>
+<header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Sachin Chauhan</h1>
+        <p class="subtitle">EDI Developer • ANSI X12 • B2B Integration</p>
+        <p class="intro">
+          I design and support reliable EDI ecosystems for retail, logistics, and supply chain operations.
+          My focus is clean mapping, robust acknowledgments, and faster incident recovery across partner networks.
+        </p>
+      </div>
+      <aside class="stats">
+        <h3>Impact Snapshot</h3>
+        <ul>
+          <li>3+ years in production EDI operations</li>
+          <li>Core transactions: 850, 856, 810, 997, 204, 210, 214</li>
+          <li>Specialized in onboarding and data validation</li>
+          <li>Hands-on with AS2, SFTP, SQL, Linux, and monitoring</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
 
-<div class="container">
+  <main class="wrap">
+    <section>
+      <h2>About Me</h2>
+      <p>
+        I am an EDI Developer who enjoys turning complex partner requirements into stable, traceable integrations.
+        From requirement analysis and map development to go-live support, I help teams reduce rejections,
+        improve acknowledgment visibility, and keep B2B data flowing accurately.
+      </p>
+    </section>
 
-<section>
-<h2>About Me</h2>
-<p>
-EDI Developer with 3+ years of experience in B2B integrations and ANSI X12 transaction processing.
-Experienced in Order-to-Cash lifecycle, trading partner onboarding, mapping development,
-and production support. Skilled in optimizing EDI workflows and handling high-volume data exchanges.
-</p>
-</section>
+    <section>
+      <h2>EDI Technology Stack</h2>
+      <div class="chip-wrap">
+        <span class="chip">ANSI X12</span>
+        <span class="chip">OpenText</span>
+        <span class="chip">IBM Sterling</span>
+        <span class="chip">AS2</span>
+        <span class="chip">SFTP</span>
+        <span class="chip">EDI Mapping</span>
+        <span class="chip">SQL Validation</span>
+        <span class="chip">Linux Automation</span>
+        <span class="chip">Production Support</span>
+        <span class="chip">Trading Partner Onboarding</span>
+      </div>
+    </section>
 
-<section>
-<h2>Technical Skills</h2>
+    <section>
+      <h2>Projects</h2>
+      <div class="grid-two">
+        <article class="card">
+          <h3>Retail EDI Integration Modernization</h3>
+          <p><strong>Role:</strong> EDI Developer</p>
+          <ul>
+            <li>Built and refined maps for 850, 856, and 810 to align with partner implementation guides.</li>
+            <li>Implemented 997 reconciliation checks for rapid error detection.</li>
+            <li>Reduced manual exception handling by improving validation and response workflows.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Logistics Message Automation</h3>
+          <p><strong>Role:</strong> EDI Developer</p>
+          <ul>
+            <li>Enabled complete workflow for 204 Load Tender, 210 Freight Invoice, and 214 Shipment Status.</li>
+            <li>Set up alert-driven monitoring for transmission failures and acknowledgment delays.</li>
+            <li>Improved partner communication by standardizing error reason codes.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
-<div class="skills">
-<span>ANSI X12</span>
-<span>OpenText</span>
-<span>IBM Sterling</span>
-<span>EDI Mapping</span>
-<span>AS2</span>
-<span>SFTP</span>
-<span>SQL</span>
-<span>Linux</span>
-<span>Production Support</span>
-<span>Git</span>
-<span>Jira</span>
-</div>
+    <section>
+      <h2>EDI Reader (Sample Utility View)</h2>
+      <div class="edi-reader">
+        <div class="reader-panel">
+<pre>ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000125*0*T*:~
+GS*PO*SENDER*RECEIVER*20260201*1200*125*X*004010~
+ST*850*0001~
+BEG*00*NE*PO123456**20260201~
+N1*ST*Warehouse-01*92*WH01~
+PO1*1*100*EA*12.45**VP*ITEM001~
+CTT*1~
+SE*7*0001~
+GE*1*125~
+IEA*1*000000125~</pre>
+        </div>
+        <div class="reader-panel">
+          <h3 style="margin-top:0;">Parsed Highlights</h3>
+          <ul class="kpi-list">
+            <li><strong>Document:</strong> 850 Purchase Order</li>
+            <li><strong>Sender / Receiver:</strong> SENDERID → RECEIVERID</li>
+            <li><strong>PO Number:</strong> PO123456</li>
+            <li><strong>Line Count:</strong> 1</li>
+            <li><strong>Validation Checks:</strong> Envelope, control number, segment count, required elements</li>
+          </ul>
+          <p>
+            This section demonstrates the kind of information an <strong>EDI Reader</strong> should surface:
+            raw payload, decoded business data, and validation outcomes for faster troubleshooting.
+          </p>
+        </div>
+      </div>
+    </section>
 
-</section>
+    <section>
+      <h2>EDI Best Practices I Use</h2>
+      <ul>
+        <li>Version-controlled mapping and partner-specific transformation rules.</li>
+        <li>Pre-production test packs with positive/negative EDI scenarios.</li>
+        <li>Automated envelope and schema checks before posting to ERP.</li>
+        <li>Structured incident playbooks for retry, rollback, and partner communication.</li>
+      </ul>
+    </section>
 
-<section>
-<h2>EDI Transaction Sets</h2>
-<ul>
-<li>850 – Purchase Order</li>
-<li>856 – Advance Ship Notice</li>
-<li>810 – Invoice</li>
-<li>997 – Functional Acknowledgment</li>
-<li>204 – Load Tender</li>
-<li>210 – Freight Invoice</li>
-<li>214 – Shipment Status</li>
-</ul>
-</section>
+    <section>
+      <h2>Contact</h2>
+      <p><strong>Email:</strong> ssachinchauahan9990@gmail.com</p>
+      <p><strong>LinkedIn:</strong> <a href="https://linkedin.com" target="_blank" rel="noreferrer">linkedin.com</a></p>
+      <p><strong>Location:</strong> Faridabad, India</p>
+    </section>
+  </main>
 
-<section>
-<h2>EDI Architecture Experience</h2>
-
-<p>
-
-ERP System → EDI Translator → AS2 / SFTP → Trading Partner → 997 Acknowledgment → ERP
-
-</p>
-
-<ul>
-<li>Trading partner onboarding</li>
-<li>Data mapping and transformation</li>
-<li>EDI validation and error handling</li>
-<li>Monitoring and logging</li>
-</ul>
-
-</section>
-
-<section>
-<h2>Key Projects</h2>
-
-<div class="project">
-<h3>Retail EDI Integration</h3>
-<p><b>Role:</b> EDI Developer</p>
-<ul>
-<li>Developed mappings for 850, 856, and 810 transactions</li>
-<li>Handled 997 acknowledgment reconciliation</li>
-<li>Managed production issues and partner communication</li>
-<li>Improved processing performance and reduced failures</li>
-</ul>
-</div>
-
-<div class="project">
-<h3>Logistics EDI Automation</h3>
-<p><b>Role:</b> EDI Developer</p>
-<ul>
-<li>Implemented 204, 210, and 214 transaction workflows</li>
-<li>Automated shipment status updates</li>
-<li>Optimized file processing and monitoring</li>
-</ul>
-</div>
-
-</section>
-
-<section>
-<h2>Production Support</h2>
-
-<ul>
-<li>Incident management and SLA handling</li>
-<li>Root cause analysis of EDI failures</li>
-<li>Monitoring transaction logs</li>
-<li>Resolving mapping and communication errors</li>
-</ul>
-
-</section>
-
-<section>
-<h2>Contact</h2>
-
-<p>Email: ssachinchauahan9990@gmail.com</p>
-<p>LinkedIn: linkedin.com</p>
-<p>Location: Faridabad, India</p>
-
-</section>
-
-</div>
-
-<footer>
-<p>© 2026 Sachin Chauhan | EDI Developer Portfolio</p>
-</footer>
+  <footer>
+    © 2026 Sachin Chauhan • EDI Portfolio
+  </footer>
 
 </body>
 </html>
