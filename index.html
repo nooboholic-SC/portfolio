@@ -246,7 +246,7 @@
         <h1>Sachin Chauhan</h1>
         <p class="subtitle">EDI Developer • ANSI X12 • B2B Integration</p>
         <p class="intro">
-          EDI professional with hands-on experience across supply chain and healthcare integrations.
+          EDI professional with hands-on experience across Retail X12 and Healthcare HIPAA transactions.
           I build reliable transaction flows, reduce partner rejections, and strengthen day-to-day EDI operations
           using ANSI X12, AS2 connectivity, validation scripting, and production monitoring.
         </p>
@@ -279,10 +279,11 @@
           <h3>Infoconn Systems, Faridabad</h3>
           <p><strong>EDI Developer</strong> • Oct 2022 – Present</p>
           <ul>
-            <li>Designed end-to-end supply chain EDI flows for 850, 856, 810, 940, and 875 transactions with WMS integration.</li>
+            <li>Designed end-to-end Retail X12 EDI flows for 850, 856, 810, 940, and 875 transactions with WMS integration.</li>
             <li>Built validation with C# scripts, XML/CSV mappings, and SQL monitoring/reporting workflows.</li>
             <li>Reduced EDI rejections by 25% through stricter compliance checks and mapping optimization.</li>
             <li>Improved data exchange efficiency by 30% by implementing secure AS2 setups and better error handling.</li>
+            <li>Managed integrations for 50+ trading partners and high-volume monthly transaction pipelines.</li>
           </ul>
         </article>
 
@@ -290,7 +291,7 @@
           <h3>Data Solutions India, Faridabad</h3>
           <p><strong>EDI Operations Specialist</strong> • Mar 2022 – Oct 2022</p>
           <ul>
-            <li>Processed and monitored 200+ daily healthcare EDI transactions including 837 claims and 835 remittance files.</li>
+            <li>Processed and monitored 200+ daily Healthcare HIPAA EDI transactions including 837 claims and 835 remittance files.</li>
             <li>Resolved claim rejections by analyzing 997 functional acknowledgments and coordinating with payers.</li>
             <li>Documented workflows and claim status mappings for transparency and faster issue resolution.</li>
           </ul>
@@ -312,12 +313,10 @@
       <h2>Projects</h2>
       <div class="grid-2">
         <article class="card">
-          <h3>Slide-Volume (Android App)</h3>
-          <ul>
-            <li>Built an app that adjusts phone volume via edge-screen swipe gestures instead of hardware buttons.</li>
-            <li>Developed with Kotlin, Java, and Android Studio.</li>
-            <li>Focused on simple controls and smooth user interaction flow.</li>
-          </ul>
+          <h3>Automated X12 to JSON Parser</h3>
+          <p><strong>The Problem:</strong> Inconsistent 810 invoice files caused downstream ERP failures.</p>
+          <p><strong>The Tool:</strong> Built a custom validation + mapping utility to standardize payloads before ERP posting.</p>
+          <p><strong>Tech:</strong> .NET, C#, SQL, X12</p>
         </article>
         <article class="card">
           <h3>AURA Discord Bot</h3>
@@ -331,12 +330,12 @@
     </section>
 
     <section>
-      <h2>Making EDI Work Visible</h2>
+      <h2>EDI Pipeline & Visibility</h2>
       <div class="split-60-40">
         <div class="card">
           <h3>Before → After (X12 850 to JSON)</h3>
           <p class="muted">Demonstrating precision, reliability, and readability from raw partner payloads.</p>
-          <pre>Raw EDI
+<pre>Raw EDI
 ST*850*0001~
 BEG*00*NE*PO123456**20260201~
 PO1*1*100*EA*12.45**VP*ITEM001~
@@ -351,10 +350,18 @@ Parsed JSON
 }</pre>
         </div>
         <div class="card">
-          <h3>EDI Pipeline</h3>
-          <pre>ERP → Mapper/Validator → AS2/SFTP → Trading Partner
-             ↓                               ↓
-        Monitoring & Alerts           997/ACK Tracking</pre>
+          <h3>Pipeline Flow</h3>
+          <div class="flow">
+            <span class="node">ERP</span><span class="arrow">→</span>
+            <span class="node">Mapper/Validator</span><span class="arrow">→</span>
+            <span class="node">AS2 / SFTP</span><span class="arrow">→</span>
+            <span class="node">Trading Partner</span>
+          </div>
+          <div class="flow">
+            <span class="node">997 / ACK Tracking</span><span class="arrow">→</span>
+            <span class="node">Alerts & Monitoring</span><span class="arrow">→</span>
+            <span class="node">ERP Posting</span>
+          </div>
           <ul>
             <li>Custom validation scripts for fast error detection.</li>
             <li>Focus on rejection reduction and partner compliance.</li>
@@ -368,20 +375,9 @@ Parsed JSON
       <h2>Technical Skills & Certifications</h2>
       <h3 style="margin:6px 0 10px;">Skills</h3>
       <div class="chips">
-        <span class="chip">C#</span>
-        <span class="chip">Python</span>
-        <span class="chip">X12</span>
-        <span class="chip">Flat File</span>
-        <span class="chip">JSON</span>
-        <span class="chip">CSV</span>
-        <span class="chip">SQL</span>
-        <span class="chip">AS2</span>
-        <span class="chip">Kotlin</span>
-        <span class="chip">Android Studio</span>
-        <span class="chip">Database Management Systems</span>
-        <span class="chip">Data Structures & Algorithms</span>
-        <span class="chip">Web Development</span>
-        <span class="chip">OOPs</span>
+        <span class="chip">C#</span><span class="chip">Python</span><span class="chip">X12</span><span class="chip">HIPAA</span>
+        <span class="chip">JSON</span><span class="chip">CSV</span><span class="chip">SQL</span><span class="chip">AS2</span>
+        <span class="chip">Kotlin</span><span class="chip">Android Studio</span><span class="chip">DBMS</span><span class="chip">OOPs</span>
       </div>
       <h3 style="margin:16px 0 10px;">Certificates (NASSCOM)</h3>
       <ul>
@@ -393,7 +389,8 @@ Parsed JSON
 
     <section>
       <h2>EDI Utility (User Input → Parsed EDI → Details)</h2>
-      <p class="muted">Paste EDI text below, then click <strong>Parse EDI</strong> to see normalized segments and extracted details.</p>
+      <p class="muted">Paste EDI text and click <strong>Parse EDI</strong>. The parser auto-detects delimiters from ISA when possible.</p>
+      <div id="validationMsg" class="validation">Validation results will appear here.</div>
       <div class="edi-tool">
         <label for="ediInput"><strong>Input EDI</strong></label>
         <textarea id="ediInput" aria-label="EDI input">ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000125*0*T*:~
@@ -431,46 +428,88 @@ IEA*1*000000125~</textarea>
     const ediInput = document.getElementById('ediInput');
     const parsedSegments = document.getElementById('parsedSegments');
     const parsedDetails = document.getElementById('parsedDetails');
+    const validationMsg = document.getElementById('validationMsg');
 
-    function normalizeSegments(ediText) {
-      return ediText
-        .replace(/\r/g, '')
-        .split('~')
-        .map(s => s.trim())
-        .filter(Boolean);
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+    }
+
+    function detectDelimiters(ediText) {
+      const isaIndex = ediText.indexOf('ISA');
+      if (isaIndex === -1 || ediText.length < isaIndex + 106) {
+        return { elementSep: '*', segmentTerm: '~' };
+      }
+      const elementSep = ediText[isaIndex + 3] || '*';
+      const segmentTerm = ediText[isaIndex + 105] || '~';
+      return { elementSep, segmentTerm };
+    }
+
+    function normalizeSegments(ediText, segmentTerm) {
+      const normalized = ediText.replace(/\r/g, '');
+      if (normalized.includes(segmentTerm)) {
+        return normalized.split(segmentTerm).map(s => s.trim()).filter(Boolean);
+      }
+      return normalized.split(/\n+/).map(s => s.trim()).filter(Boolean);
     }
 
     function safeGet(arr, idx) {
       return arr[idx] ? arr[idx].trim() : 'N/A';
     }
 
+    function firstById(partsArr, id) {
+      return partsArr.find(parts => parts[0] === id);
+    }
+
     function parseEdi(ediText) {
-      const segments = normalizeSegments(ediText);
-      const split = segments.map(seg => seg.split('*'));
+      const { elementSep, segmentTerm } = detectDelimiters(ediText);
+      const segments = normalizeSegments(ediText, segmentTerm);
+      const split = segments.map(seg => seg.split(elementSep));
 
-      const find = (id) => split.find(parts => parts[0] === id);
-      const isa = find('ISA');
-      const gs = find('GS');
-      const st = find('ST');
-      const beg = find('BEG');
-      const bht = find('BHT');
-      const ctt = find('CTT');
-      const se = find('SE');
+      const isa = firstById(split, 'ISA');
+      const gs = firstById(split, 'GS');
+      const stIndex = split.findIndex(parts => parts[0] === 'ST');
+      const seIndex = split.findIndex(parts => parts[0] === 'SE');
+      const st = stIndex >= 0 ? split[stIndex] : undefined;
+      const beg = firstById(split, 'BEG');
+      const bht = firstById(split, 'BHT');
+      const ctt = firstById(split, 'CTT');
+      const se = seIndex >= 0 ? split[seIndex] : undefined;
 
-      const details = {
-        transactionSet: safeGet(st || [], 1),
-        controlNumber: safeGet(st || [], 2),
-        senderId: safeGet(isa || [], 6),
-        receiverId: safeGet(isa || [], 8),
-        functionalGroup: safeGet(gs || [], 1),
-        poNumber: safeGet(beg || [], 3),
-        bhtReference: safeGet(bht || [], 3),
-        reportedLineCount: safeGet(ctt || [], 1),
-        segmentCount: segments.length,
-        seSegmentCount: safeGet(se || [], 1),
+      const seCount = parseInt(safeGet(se || [], 1), 10);
+      const txnSegmentCount = stIndex >= 0 && seIndex >= stIndex ? (seIndex - stIndex + 1) : NaN;
+      const countMatch = !Number.isNaN(seCount) && !Number.isNaN(txnSegmentCount) && seCount === txnSegmentCount;
+
+      return {
+        segments,
+        elementSep,
+        segmentTerm,
+        details: {
+          transactionSet: safeGet(st || [], 1),
+          controlNumber: safeGet(st || [], 2),
+          functionalGroup: safeGet(gs || [], 1),
+          senderId: safeGet(isa || [], 6),
+          receiverId: safeGet(isa || [], 8),
+          poNumber: safeGet(beg || [], 3),
+          bhtReference: safeGet(bht || [], 3),
+          reportedLineCount: safeGet(ctt || [], 1),
+          interchangeSegments: segments.length,
+          seSegmentCount: Number.isNaN(seCount) ? 'N/A' : seCount,
+          txnSegmentCount: Number.isNaN(txnSegmentCount) ? 'N/A' : txnSegmentCount,
+          countMatch,
+        }
       };
+    }
 
-      return { segments, details };
+    function highlightSegments(segments, elementSep, segmentTerm) {
+      return segments.map(seg => {
+        const parts = seg.split(elementSep);
+        const id = escapeHtml(parts[0] || '');
+        const rest = escapeHtml(parts.slice(1).join(elementSep));
+        if (rest) {
+          return `<span class="seg-id">${id}</span><span class="seg-data">${escapeHtml(elementSep)}${rest}${escapeHtml(segmentTerm)}</span>`;
+        }
+        return `<span class="seg-id">${id}</span><span class="seg-data">${escapeHtml(segmentTerm)}</span>`;
+      }).join('\n');
     }
 
     function renderResult() {
@@ -478,26 +517,35 @@ IEA*1*000000125~</textarea>
       if (!text) {
         parsedSegments.textContent = 'No EDI input provided.';
         parsedDetails.textContent = 'Please paste EDI content first.';
+        validationMsg.textContent = 'No input to validate.';
+        validationMsg.className = 'validation error';
         return;
       }
 
-      const { segments, details } = parseEdi(text);
+      const { segments, elementSep, segmentTerm, details } = parseEdi(text);
+      parsedSegments.innerHTML = highlightSegments(segments, elementSep, segmentTerm);
 
-      parsedSegments.textContent = segments
-        .map((seg) => `${seg}~`)
-        .join('\n');
+      const status = details.countMatch
+        ? `✅ Match (Expected ${details.seSegmentCount}, Found ${details.txnSegmentCount})`
+        : `❌ Mismatch (Expected ${details.seSegmentCount}, Found ${details.txnSegmentCount})`;
+
+      validationMsg.textContent = `Segment Count Validation: ${status}`;
+      validationMsg.className = details.countMatch ? 'validation ok' : 'validation error';
 
       parsedDetails.textContent = [
-        `Transaction Set      : ${details.transactionSet}`,
-        `Transaction Control# : ${details.controlNumber}`,
-        `Functional Group     : ${details.functionalGroup}`,
-        `Sender ID            : ${details.senderId}`,
-        `Receiver ID          : ${details.receiverId}`,
-        `PO Number            : ${details.poNumber}`,
-        `BHT Reference        : ${details.bhtReference}`,
-        `Reported Line Count  : ${details.reportedLineCount}`,
-        `SE Segment Count     : ${details.seSegmentCount}`,
-        `Detected Segments    : ${details.segmentCount}`,
+        `Transaction Set         : ${details.transactionSet}`,
+        `Transaction Control#    : ${details.controlNumber}`,
+        `Functional Group        : ${details.functionalGroup}`,
+        `Sender ID               : ${details.senderId}`,
+        `Receiver ID             : ${details.receiverId}`,
+        `PO Number               : ${details.poNumber}`,
+        `BHT Reference           : ${details.bhtReference}`,
+        `Reported Line Count     : ${details.reportedLineCount}`,
+        `SE Segment Count        : ${details.seSegmentCount}`,
+        `Txn Segments (ST..SE)   : ${details.txnSegmentCount}`,
+        `Interchange Segments    : ${details.interchangeSegments}`,
+        `Element Delimiter       : ${elementSep}`,
+        `Segment Terminator      : ${segmentTerm}`,
       ].join('\n');
     }
 
@@ -507,10 +555,12 @@ IEA*1*000000125~</textarea>
       ediInput.value = '';
       parsedSegments.textContent = 'Click "Parse EDI" to generate normalized segments.';
       parsedDetails.textContent = 'Details will appear here.';
+      validationMsg.textContent = 'Validation results will appear here.';
+      validationMsg.className = 'validation';
     });
 
     document.getElementById('sampleBtn').addEventListener('click', () => {
-      ediInput.value = `ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000126*0*T*:~\nGS*PO*SENDER*RECEIVER*20260201*1200*126*X*004010~\nST*850*0002~\nBEG*00*NE*PO450001**20260201~\nN1*ST*DC-01*92*WH01~\nPO1*1*50*EA*21.50**VP*ITEM100~\nPO1*2*20*EA*9.99**VP*ITEM200~\nCTT*2~\nSE*8*0002~\nGE*1*126~\nIEA*1*000000126~`;
+      ediInput.value = `ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000126*0*T*:~\nGS*PO*SENDER*RECEIVER*20260201*1200*126*X*004010~\nST*850*0002~\nBEG*00*NE*PO450001**20260201~\nN1*ST*DC-01*92*WH01~\nPO1*1*50*EA*21.50**VP*ITEM100~\nPO1*2*20*EA*9.99**VP*ITEM200~\nCTT*2~\nSE*7*0002~\nGE*1*126~\nIEA*1*000000126~`;
       renderResult();
     });
 
