@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+ <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sachin Chauhan | EDI Portfolio</title>
   <style>
     :root {
-      --bg: #0f1115;
-      --bg-soft: #171a1f;
-      --panel: #1d222b;
-      --panel-2: #252c37;
+      --bg: #0D1B2A;
+      --bg-soft: #1B263B;
+      --panel: #1B263B;
+      --panel-2: #243447;
       --text: #f3f4f6;
       --muted: #bcc2ca;
-      --line: #3b4453;
-      --accent: #d1d5db;
-      --accent-soft: #9ca3af;
+      --line: #415A77;
+      --accent: #38BDF8;
+      --accent-soft: #94A3B8;
       --shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
     }
 
@@ -23,7 +23,7 @@
     body {
       margin: 0;
       font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, #0f1115 0%, #151b23 100%);
+      background: linear-gradient(180deg, #0D1B2A 0%, #1B263B 100%);
       color: var(--text);
       line-height: 1.55;
     }
@@ -36,7 +36,7 @@
 
     .hero {
       border-bottom: 1px solid var(--line);
-      background: radial-gradient(circle at 80% -10%, #343d4b, #161b23 48%, #101318 100%);
+      background: radial-gradient(circle at 80% -10%, #415A77, #1B263B 48%, #0D1B2A 100%);
       padding: 56px 0 42px;
     }
 
@@ -67,7 +67,7 @@
     .hero-card {
       background: rgba(30, 35, 43, 0.95);
       border: 1px solid var(--line);
-      border-radius: 12px;
+      border-radius: 20px;
       padding: 16px;
       box-shadow: var(--shadow);
     }
@@ -80,7 +80,7 @@
     section {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 20px;
       padding: 22px;
       margin-bottom: 22px;
       box-shadow: var(--shadow);
@@ -112,7 +112,7 @@
     .card {
       background: var(--panel-2);
       border: 1px solid #475163;
-      border-radius: 12px;
+      border-radius: 20px;
       padding: 14px;
     }
 
@@ -149,7 +149,7 @@
       resize: vertical;
       background: #131821;
       border: 1px solid #495467;
-      border-radius: 10px;
+      border-radius: 20px;
       color: #edf0f4;
       padding: 12px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -164,8 +164,8 @@
     }
 
     button {
-      background: #d1d5db;
-      color: #111827;
+      background: #F97316;
+      color: #0B1220;
       border: 0;
       border-radius: 8px;
       padding: 10px 14px;
@@ -174,7 +174,7 @@
     }
 
     button.secondary {
-      background: #374151;
+      background: #334155;
       color: #f3f4f6;
       border: 1px solid #4b5563;
     }
@@ -185,10 +185,16 @@
       gap: 12px;
     }
 
+    .split-60-40 {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 14px;
+    }
+
     .panel {
       background: #141a22;
       border: 1px solid #465265;
-      border-radius: 10px;
+      border-radius: 20px;
       padding: 12px;
       overflow: auto;
     }
@@ -224,7 +230,8 @@
     @media (max-width: 900px) {
       .hero-grid,
       .grid-2,
-      .output-grid {
+      .output-grid,
+      .split-60-40 {
         grid-template-columns: 1fr;
       }
     }
@@ -237,7 +244,7 @@
     <div class="wrap hero-grid">
       <div>
         <h1>Sachin Chauhan</h1>
-        <p class="subtitle">EDI Developer • B2B Integration</p>
+        <p class="subtitle">EDI Developer • ANSI X12 • B2B Integration</p>
         <p class="intro">
           EDI professional with hands-on experience across supply chain and healthcare integrations.
           I build reliable transaction flows, reduce partner rejections, and strengthen day-to-day EDI operations
@@ -249,7 +256,7 @@
         <p><strong>Phone:</strong> +91 9999887487</p>
         <p><strong>Email:</strong> ssachinchauahan9990@gmail.com</p>
         <p><strong>Location:</strong> Faridabad, India</p>
-        <p><strong>LinkedIn:</strong> https://www.linkedin.com/in/sachin-chauhan-edi/</p>
+        <p><strong>LinkedIn:</strong> linkedin.com/in/sachinchauhan</p>
       </aside>
     </div>
   </header>
@@ -324,6 +331,40 @@
     </section>
 
     <section>
+      <h2>Making EDI Work Visible</h2>
+      <div class="split-60-40">
+        <div class="card">
+          <h3>Before → After (X12 850 to JSON)</h3>
+          <p class="muted">Demonstrating precision, reliability, and readability from raw partner payloads.</p>
+          <pre>Raw EDI
+ST*850*0001~
+BEG*00*NE*PO123456**20260201~
+PO1*1*100*EA*12.45**VP*ITEM001~
+
+Parsed JSON
+{
+  "transactionSet": "850",
+  "poNumber": "PO123456",
+  "lineItems": [
+    {"line": 1, "qty": 100, "uom": "EA", "price": 12.45, "item": "ITEM001"}
+  ]
+}</pre>
+        </div>
+        <div class="card">
+          <h3>EDI Pipeline</h3>
+          <pre>ERP → Mapper/Validator → AS2/SFTP → Trading Partner
+             ↓                               ↓
+        Monitoring & Alerts           997/ACK Tracking</pre>
+          <ul>
+            <li>Custom validation scripts for fast error detection.</li>
+            <li>Focus on rejection reduction and partner compliance.</li>
+            <li>Reliable transport with AS2 and managed retry logic.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
       <h2>Technical Skills & Certifications</h2>
       <h3 style="margin:6px 0 10px;">Skills</h3>
       <div class="chips">
@@ -368,7 +409,7 @@ IEA*1*000000125~</textarea>
         <div class="btn-row">
           <button id="parseBtn" type="button">Parse EDI</button>
           <button id="clearBtn" type="button" class="secondary">Clear</button>
-          <button id="sampleBtn" type="button" class="secondary">Load 837 Sample</button>
+          <button id="sampleBtn" type="button" class="secondary">Load 850 Sample</button>
         </div>
         <div class="output-grid">
           <div class="panel">
@@ -443,7 +484,7 @@ IEA*1*000000125~</textarea>
       const { segments, details } = parseEdi(text);
 
       parsedSegments.textContent = segments
-        .map((seg, idx) => `${String(idx + 1).padStart(2, '0')}. ${seg}~`)
+        .map((seg) => `${seg}~`)
         .join('\n');
 
       parsedDetails.textContent = [
@@ -469,7 +510,7 @@ IEA*1*000000125~</textarea>
     });
 
     document.getElementById('sampleBtn').addEventListener('click', () => {
-      ediInput.value = `ISA*00*          *00*          *ZZ*HEALTHSENDER   *ZZ*HEALTHRCVR     *260201*1305*^*00501*000000999*0*T*:~\nGS*HC*HEALTHSENDER*HEALTHRCVR*20260201*1305*999*X*005010X222A1~\nST*837*0001*005010X222A1~\nBHT*0019*00*0123*20260201*1305*CH~\nSE*4*0001~\nGE*1*999~\nIEA*1*000000999~`;
+      ediInput.value = `ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000126*0*T*:~\nGS*PO*SENDER*RECEIVER*20260201*1200*126*X*004010~\nST*850*0002~\nBEG*00*NE*PO450001**20260201~\nN1*ST*DC-01*92*WH01~\nPO1*1*50*EA*21.50**VP*ITEM100~\nPO1*2*20*EA*9.99**VP*ITEM200~\nCTT*2~\nSE*8*0002~\nGE*1*126~\nIEA*1*000000126~`;
       renderResult();
     });
 
