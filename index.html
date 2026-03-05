@@ -8,128 +8,88 @@
     :root {
       --bg: #0f1115;
       --bg-soft: #171a1f;
-      --panel: #1e232b;
-      --panel-2: #252b35;
-      --text: #f2f3f5;
-      --muted: #b8bec7;
-      --line: #3a4250;
-      --accent: #9ca3af;
-      --accent-strong: #d1d5db;
-      --ok: #b4b9c3;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --panel: #1d222b;
+      --panel-2: #252c37;
+      --text: #f3f4f6;
+      --muted: #bcc2ca;
+      --line: #3b4453;
+      --accent: #d1d5db;
+      --accent-soft: #9ca3af;
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
     body {
       margin: 0;
-      padding: 0;
-      font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(180deg, #0f1115 0%, #141820 100%);
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #0f1115 0%, #151b23 100%);
       color: var(--text);
       line-height: 1.55;
     }
 
-    a {
-      color: var(--accent-strong);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .hero {
-      border-bottom: 1px solid var(--line);
-      background: radial-gradient(circle at top right, #2a313d 0%, #161a22 45%, #0f1115 100%);
-      padding: 64px 20px 50px;
-    }
-
     .wrap {
-      max-width: 1050px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 20px;
     }
 
+    .hero {
+      border-bottom: 1px solid var(--line);
+      background: radial-gradient(circle at 80% -10%, #343d4b, #161b23 48%, #101318 100%);
+      padding: 56px 0 42px;
+    }
+
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 24px;
-      align-items: center;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 20px;
+      align-items: start;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(2rem, 4vw, 3rem);
-      letter-spacing: 0.5px;
+      font-size: clamp(2rem, 4vw, 2.9rem);
     }
 
     .subtitle {
+      margin: 8px 0 0;
       color: var(--muted);
-      margin-top: 8px;
-      font-size: 1.08rem;
+      font-size: 1.04rem;
     }
 
     .intro {
-      margin-top: 18px;
-      color: #e4e7ec;
-      max-width: 670px;
+      margin-top: 16px;
+      max-width: 700px;
+      color: #e5e8ed;
     }
 
-    .stats {
-      background: rgba(31, 36, 45, 0.9);
+    .hero-card {
+      background: rgba(30, 35, 43, 0.95);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 20px;
+      border-radius: 12px;
+      padding: 16px;
       box-shadow: var(--shadow);
     }
 
-    .stats h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
-      color: var(--accent-strong);
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
+    .hero-card h3 { margin: 0 0 10px; color: var(--accent); }
+    .hero-card p { margin: 8px 0; color: #d7dce3; }
 
-    .stats ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .stats li {
-      padding: 8px 0;
-      border-bottom: 1px dashed #3b4452;
-      color: #dde1e7;
-    }
-
-    .stats li:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    main {
-      padding: 34px 0 56px;
-    }
+    main { padding: 30px 0 58px; }
 
     section {
-      margin-bottom: 28px;
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 22px;
+      margin-bottom: 22px;
       box-shadow: var(--shadow);
     }
 
     h2 {
       margin: 0 0 14px;
-      font-size: 1.3rem;
-      color: var(--accent-strong);
+      color: var(--accent);
+      font-size: 1.26rem;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -137,97 +97,135 @@
 
     h2::before {
       content: "";
-      width: 12px;
-      height: 12px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
-      background: linear-gradient(120deg, #e5e7eb, #7b8491);
-      box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.2);
+      background: linear-gradient(120deg, #e5e7eb, #7f8794);
     }
 
-    .chip-wrap {
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--panel-2);
+      border: 1px solid #475163;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .card h3 { margin: 0 0 8px; }
+    .card p { margin: 8px 0; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      background: #2a313d;
+      border: 1px solid #586274;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.92rem;
+      color: #e7eaf0;
+    }
+
+    ul { margin: 8px 0 0 18px; }
+    li { margin-bottom: 6px; }
+
+    .edi-tool {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 190px;
+      resize: vertical;
+      background: #131821;
+      border: 1px solid #495467;
+      border-radius: 10px;
+      color: #edf0f4;
+      padding: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .btn-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
 
-    .chip {
-      padding: 8px 12px;
-      border: 1px solid #566071;
-      border-radius: 999px;
-      background: var(--panel-2);
-      color: #e6e9ee;
-      font-size: 0.92rem;
+    button {
+      background: #d1d5db;
+      color: #111827;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-weight: 600;
+      cursor: pointer;
     }
 
-    .grid-two {
+    button.secondary {
+      background: #374151;
+      color: #f3f4f6;
+      border: 1px solid #4b5563;
+    }
+
+    .output-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
-    .card {
-      background: #202631;
-      border: 1px solid #424c5e;
-      border-radius: 12px;
-      padding: 16px;
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      color: #f4f6f8;
-    }
-
-    ul {
-      margin: 10px 0 0 20px;
-      padding: 0;
-    }
-
-    .edi-reader {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 16px;
-    }
-
-    .reader-panel {
-      background: #151922;
-      border: 1px solid #3d4758;
+    .panel {
+      background: #141a22;
+      border: 1px solid #465265;
       border-radius: 10px;
-      padding: 14px;
+      padding: 12px;
       overflow: auto;
+    }
+
+    .panel h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #e5e7eb;
     }
 
     pre {
       margin: 0;
       white-space: pre-wrap;
       word-break: break-word;
-      color: #d8dde5;
-      font-size: 0.88rem;
-      line-height: 1.5;
+      color: #dbe0e8;
+      font-size: 0.86rem;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
-    .kpi-list li {
-      margin-bottom: 6px;
-    }
+    .muted { color: var(--muted); }
 
     footer {
-      text-align: center;
       border-top: 1px solid var(--line);
+      background: #11151c;
+      text-align: center;
       color: var(--muted);
-      padding: 18px;
-      background: #12161d;
+      padding: 17px;
       font-size: 0.92rem;
     }
 
-    @media (max-width: 860px) {
-      .hero-grid,
-      .grid-two,
-      .edi-reader {
-        grid-template-columns: 1fr;
-      }
+    a { color: #e5e7eb; }
 
-      .hero {
-        padding-top: 42px;
+    @media (max-width: 900px) {
+      .hero-grid,
+      .grid-2,
+      .output-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -235,83 +233,129 @@
 
 <body>
 
-<header class="hero">
+ <header class="hero">
     <div class="wrap hero-grid">
       <div>
         <h1>Sachin Chauhan</h1>
-        <p class="subtitle">EDI Developer • ANSI X12 • B2B Integration</p>
+        <p class="subtitle">EDI Developer • EDI Operations Specialist • B2B Integration</p>
         <p class="intro">
-          I design and support reliable EDI ecosystems for retail, logistics, and supply chain operations.
-          My focus is clean mapping, robust acknowledgments, and faster incident recovery across partner networks.
+          EDI professional with hands-on experience across supply chain and healthcare integrations.
+          I build reliable transaction flows, reduce partner rejections, and strengthen day-to-day EDI operations
+          using ANSI X12, AS2 connectivity, validation scripting, and production monitoring.
         </p>
       </div>
-      <aside class="stats">
-        <h3>Impact Snapshot</h3>
-        <ul>
-          <li>3+ years in production EDI operations</li>
-          <li>Core transactions: 850, 856, 810, 997, 204, 210, 214</li>
-          <li>Specialized in onboarding and data validation</li>
-          <li>Hands-on with AS2, SFTP, SQL, Linux, and monitoring</li>
-        </ul>
+      <aside class="hero-card">
+        <h3>Contact</h3>
+        <p><strong>Phone:</strong> +91 9999887487</p>
+        <p><strong>Email:</strong> ssachinchauahan9990@gmail.com</p>
+        <p><strong>Location:</strong> Faridabad, India</p>
+        <p><strong>LinkedIn:</strong> linkedin.com/in/sachinchauhan</p>
       </aside>
     </div>
   </header>
 
   <main class="wrap">
     <section>
-      <h2>About Me</h2>
-      <p>
-        I am an EDI Developer who enjoys turning complex partner requirements into stable, traceable integrations.
-        From requirement analysis and map development to go-live support, I help teams reduce rejections,
-        improve acknowledgment visibility, and keep B2B data flowing accurately.
-      </p>
+      <h2>Education</h2>
+      <div class="card">
+        <h3>Ramanujan College, University of Delhi, Delhi</h3>
+        <p><strong>Bachelor of Vocational Studies – Software Development</strong></p>
+        <p><strong>Duration:</strong> Aug 2018 – Aug 2021</p>
+        <p><strong>CGPA:</strong> 6.8</p>
+      </div>
     </section>
 
     <section>
-      <h2>EDI Technology Stack</h2>
-      <div class="chip-wrap">
-        <span class="chip">ANSI X12</span>
-        <span class="chip">OpenText</span>
-        <span class="chip">IBM Sterling</span>
-        <span class="chip">AS2</span>
-        <span class="chip">SFTP</span>
-        <span class="chip">EDI Mapping</span>
-        <span class="chip">SQL Validation</span>
-        <span class="chip">Linux Automation</span>
-        <span class="chip">Production Support</span>
-        <span class="chip">Trading Partner Onboarding</span>
+      <h2>Experience</h2>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Infoconn Systems, Faridabad</h3>
+          <p><strong>EDI Developer</strong> • Oct 2022 – Present</p>
+          <ul>
+            <li>Designed end-to-end supply chain EDI flows for 850, 856, 810, 940, and 875 transactions with WMS integration.</li>
+            <li>Built validation with C# scripts, XML/CSV mappings, and SQL monitoring/reporting workflows.</li>
+            <li>Reduced EDI rejections by 25% through stricter compliance checks and mapping optimization.</li>
+            <li>Improved data exchange efficiency by 30% by implementing secure AS2 setups and better error handling.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Data Solutions India, Faridabad</h3>
+          <p><strong>EDI Operations Specialist</strong> • Mar 2022 – Oct 2022</p>
+          <ul>
+            <li>Processed and monitored 200+ daily healthcare EDI transactions including 837 claims and 835 remittance files.</li>
+            <li>Resolved claim rejections by analyzing 997 functional acknowledgments and coordinating with payers.</li>
+            <li>Documented workflows and claim status mappings for transparency and faster issue resolution.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Data Solutions India, Faridabad</h3>
+          <p><strong>EDI Support Associate</strong> • Aug 2021 – Mar 2022</p>
+          <ul>
+            <li>Processed and validated healthcare EDI transmissions to maintain HIPAA compliance.</li>
+            <li>Assisted with partner onboarding and transaction testing to stabilize new integrations.</li>
+            <li>Tracked submission metrics and identified bottlenecks while ramping quickly on HIPAA transaction standards.</li>
+          </ul>
+        </article>
       </div>
     </section>
 
     <section>
       <h2>Projects</h2>
-      <div class="grid-two">
+      <div class="grid-2">
         <article class="card">
-          <h3>Retail EDI Integration Modernization</h3>
-          <p><strong>Role:</strong> EDI Developer</p>
+          <h3>Slide-Volume (Android App)</h3>
           <ul>
-            <li>Built and refined maps for 850, 856, and 810 to align with partner implementation guides.</li>
-            <li>Implemented 997 reconciliation checks for rapid error detection.</li>
-            <li>Reduced manual exception handling by improving validation and response workflows.</li>
+            <li>Built an app that adjusts phone volume via edge-screen swipe gestures instead of hardware buttons.</li>
+            <li>Developed with Kotlin, Java, and Android Studio.</li>
+            <li>Focused on simple controls and smooth user interaction flow.</li>
           </ul>
         </article>
         <article class="card">
-          <h3>Logistics Message Automation</h3>
-          <p><strong>Role:</strong> EDI Developer</p>
+          <h3>AURA Discord Bot</h3>
           <ul>
-            <li>Enabled complete workflow for 204 Load Tender, 210 Freight Invoice, and 214 Shipment Status.</li>
-            <li>Set up alert-driven monitoring for transmission failures and acknowledgment delays.</li>
-            <li>Improved partner communication by standardizing error reason codes.</li>
+            <li>Created a gamified Discord bot with reaction-based points, categories, and leaderboard mechanics.</li>
+            <li>Improved real-time performance with efficient event handling and data management.</li>
+            <li>Developed using JavaScript, JSON, Linux environment, and Discord API.</li>
           </ul>
         </article>
       </div>
     </section>
 
     <section>
-      <h2>EDI Reader (Sample Utility View)</h2>
-      <div class="edi-reader">
-        <div class="reader-panel">
-<pre>ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000125*0*T*:~
+      <h2>Technical Skills & Certifications</h2>
+      <h3 style="margin:6px 0 10px;">Skills</h3>
+      <div class="chips">
+        <span class="chip">C#</span>
+        <span class="chip">Python</span>
+        <span class="chip">X12</span>
+        <span class="chip">Flat File</span>
+        <span class="chip">JSON</span>
+        <span class="chip">CSV</span>
+        <span class="chip">SQL</span>
+        <span class="chip">AS2</span>
+        <span class="chip">Kotlin</span>
+        <span class="chip">Android Studio</span>
+        <span class="chip">Database Management Systems</span>
+        <span class="chip">Data Structures & Algorithms</span>
+        <span class="chip">Web Development</span>
+        <span class="chip">OOPs</span>
+      </div>
+      <h3 style="margin:16px 0 10px;">Certificates (NASSCOM)</h3>
+      <ul>
+        <li>Software Developer</li>
+        <li>Web Developer</li>
+        <li>Junior Data Associate</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>EDI Utility (User Input → Parsed EDI → Details)</h2>
+      <p class="muted">Paste EDI text below, then click <strong>Parse EDI</strong> to see normalized segments and extracted details.</p>
+      <div class="edi-tool">
+        <label for="ediInput"><strong>Input EDI</strong></label>
+        <textarea id="ediInput" aria-label="EDI input">ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000125*0*T*:~
 GS*PO*SENDER*RECEIVER*20260201*1200*125*X*004010~
 ST*850*0001~
 BEG*00*NE*PO123456**20260201~
@@ -320,46 +364,117 @@ PO1*1*100*EA*12.45**VP*ITEM001~
 CTT*1~
 SE*7*0001~
 GE*1*125~
-IEA*1*000000125~</pre>
+IEA*1*000000125~</textarea>
+        <div class="btn-row">
+          <button id="parseBtn" type="button">Parse EDI</button>
+          <button id="clearBtn" type="button" class="secondary">Clear</button>
+          <button id="sampleBtn" type="button" class="secondary">Load 837 Sample</button>
         </div>
-        <div class="reader-panel">
-          <h3 style="margin-top:0;">Parsed Highlights</h3>
-          <ul class="kpi-list">
-            <li><strong>Document:</strong> 850 Purchase Order</li>
-            <li><strong>Sender / Receiver:</strong> SENDERID → RECEIVERID</li>
-            <li><strong>PO Number:</strong> PO123456</li>
-            <li><strong>Line Count:</strong> 1</li>
-            <li><strong>Validation Checks:</strong> Envelope, control number, segment count, required elements</li>
-          </ul>
-          <p>
-            This section demonstrates the kind of information an <strong>EDI Reader</strong> should surface:
-            raw payload, decoded business data, and validation outcomes for faster troubleshooting.
-          </p>
+        <div class="output-grid">
+          <div class="panel">
+            <h3>Parsed EDI (Normalized Segments)</h3>
+            <pre id="parsedSegments">Click "Parse EDI" to generate normalized segments.</pre>
+          </div>
+          <div class="panel">
+            <h3>Details</h3>
+            <pre id="parsedDetails">Details will appear here.</pre>
+          </div>
         </div>
       </div>
     </section>
-
-    <section>
-      <h2>EDI Best Practices I Use</h2>
-      <ul>
-        <li>Version-controlled mapping and partner-specific transformation rules.</li>
-        <li>Pre-production test packs with positive/negative EDI scenarios.</li>
-        <li>Automated envelope and schema checks before posting to ERP.</li>
-        <li>Structured incident playbooks for retry, rollback, and partner communication.</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Contact</h2>
-      <p><strong>Email:</strong> ssachinchauahan9990@gmail.com</p>
-      <p><strong>LinkedIn:</strong> <a href="https://linkedin.com" target="_blank" rel="noreferrer">linkedin.com</a></p>
-      <p><strong>Location:</strong> Faridabad, India</p>
-    </section>
   </main>
 
-  <footer>
-    © 2026 Sachin Chauhan • EDI Portfolio
-  </footer>
+  <footer>© 2026 Sachin Chauhan • EDI Portfolio</footer>
+
+  <script>
+    const ediInput = document.getElementById('ediInput');
+    const parsedSegments = document.getElementById('parsedSegments');
+    const parsedDetails = document.getElementById('parsedDetails');
+
+    function normalizeSegments(ediText) {
+      return ediText
+        .replace(/\r/g, '')
+        .split('~')
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
+    function safeGet(arr, idx) {
+      return arr[idx] ? arr[idx].trim() : 'N/A';
+    }
+
+    function parseEdi(ediText) {
+      const segments = normalizeSegments(ediText);
+      const split = segments.map(seg => seg.split('*'));
+
+      const find = (id) => split.find(parts => parts[0] === id);
+      const isa = find('ISA');
+      const gs = find('GS');
+      const st = find('ST');
+      const beg = find('BEG');
+      const bht = find('BHT');
+      const ctt = find('CTT');
+      const se = find('SE');
+
+      const details = {
+        transactionSet: safeGet(st || [], 1),
+        controlNumber: safeGet(st || [], 2),
+        senderId: safeGet(isa || [], 6),
+        receiverId: safeGet(isa || [], 8),
+        functionalGroup: safeGet(gs || [], 1),
+        poNumber: safeGet(beg || [], 3),
+        bhtReference: safeGet(bht || [], 3),
+        reportedLineCount: safeGet(ctt || [], 1),
+        segmentCount: segments.length,
+        seSegmentCount: safeGet(se || [], 1),
+      };
+
+      return { segments, details };
+    }
+
+    function renderResult() {
+      const text = ediInput.value.trim();
+      if (!text) {
+        parsedSegments.textContent = 'No EDI input provided.';
+        parsedDetails.textContent = 'Please paste EDI content first.';
+        return;
+      }
+
+      const { segments, details } = parseEdi(text);
+
+      parsedSegments.textContent = segments
+        .map((seg, idx) => `${String(idx + 1).padStart(2, '0')}. ${seg}~`)
+        .join('\n');
+
+      parsedDetails.textContent = [
+        `Transaction Set      : ${details.transactionSet}`,
+        `Transaction Control# : ${details.controlNumber}`,
+        `Functional Group     : ${details.functionalGroup}`,
+        `Sender ID            : ${details.senderId}`,
+        `Receiver ID          : ${details.receiverId}`,
+        `PO Number            : ${details.poNumber}`,
+        `BHT Reference        : ${details.bhtReference}`,
+        `Reported Line Count  : ${details.reportedLineCount}`,
+        `SE Segment Count     : ${details.seSegmentCount}`,
+        `Detected Segments    : ${details.segmentCount}`,
+      ].join('\n');
+    }
+
+    document.getElementById('parseBtn').addEventListener('click', renderResult);
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      ediInput.value = '';
+      parsedSegments.textContent = 'Click "Parse EDI" to generate normalized segments.';
+      parsedDetails.textContent = 'Details will appear here.';
+    });
+
+    document.getElementById('sampleBtn').addEventListener('click', () => {
+      ediInput.value = `ISA*00*          *00*          *ZZ*HEALTHSENDER   *ZZ*HEALTHRCVR     *260201*1305*^*00501*000000999*0*T*:~\nGS*HC*HEALTHSENDER*HEALTHRCVR*20260201*1305*999*X*005010X222A1~\nST*837*0001*005010X222A1~\nBHT*0019*00*0123*20260201*1305*CH~\nSE*4*0001~\nGE*1*999~\nIEA*1*000000999~`;
+      renderResult();
+    });
+
+    renderResult();
+  </script>
 
 </body>
 </html>
