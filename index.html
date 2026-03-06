@@ -215,10 +215,32 @@
       border: 1px solid #4b5563;
     }
 
+    button.secondary:hover {
+      border-color: #38BDF8;
+      transform: translateY(-1px);
+    }
+
+    button.secondary.active-convert {
+      background: #0f2f45;
+      border-color: #38BDF8;
+      color: #dff5ff;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+    }
+
     .output-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
+    }
+
+    .conversion-status {
+      margin-top: 2px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid #4b5563;
+      background: #17202b;
+      color: #dbe5f0;
+      font-size: 0.9rem;
     }
 
     .panel {
@@ -439,6 +461,7 @@ IEA*1*000000125~</textarea>
           <button id="clearBtn" type="button" class="secondary">Clear</button>
           <button id="sampleBtn" type="button" class="secondary">Load 850 Sample</button>
         </div>
+        <div id="conversionStatus" class="conversion-status">Visible output: Parsed EDI only. Click EDI to JSON / XML / CSV.</div>
         <div class="output-grid">
           <div class="panel">
             <h3>Parsed EDI (Normalized Segments)</h3>
@@ -464,6 +487,7 @@ IEA*1*000000125~</textarea>
     const parsedSegments = document.getElementById('parsedSegments');
     const parsedDetails = document.getElementById('parsedDetails');
     const convertedOutput = document.getElementById('convertedOutput');
+    const conversionStatus = document.getElementById('conversionStatus');
 
     function escapeHtml(str) {
       return str.replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
@@ -567,6 +591,25 @@ IEA*1*000000125~</textarea>
       return lines.join('\n');
     }
 
+
+    function setActiveConversion(typeLabel) {
+      const map = {
+        json: document.getElementById('convertJsonBtn'),
+        xml: document.getElementById('convertXmlBtn'),
+        csv: document.getElementById('convertCsvBtn'),
+      };
+      Object.values(map).forEach((btn) => btn.classList.remove('active-convert'));
+      if (typeLabel && map[typeLabel]) {
+        map[typeLabel].classList.add('active-convert');
+      }
+
+      if (!typeLabel) {
+        conversionStatus.textContent = 'Visible output: Parsed EDI only. Click EDI to JSON / XML / CSV.';
+      } else {
+        conversionStatus.textContent = `Visible output: EDI converted to ${typeLabel.toUpperCase()}.`;
+      }
+    }
+
     function renderResult() {
       const text = ediInput.value.trim();
       if (!text) {
@@ -601,18 +644,21 @@ IEA*1*000000125~</textarea>
       const parsed = renderResult();
       if (!parsed) return;
       convertedOutput.textContent = JSON.stringify(segmentsToJson(parsed), null, 2);
+      setActiveConversion('json');
     }
 
     function convertToXml() {
       const parsed = renderResult();
       if (!parsed) return;
       convertedOutput.textContent = segmentsToXml(parsed);
+      setActiveConversion('xml');
     }
 
     function convertToCsv() {
       const parsed = renderResult();
       if (!parsed) return;
       convertedOutput.textContent = segmentsToCsv(parsed);
+      setActiveConversion('csv');
     }
 
     document.getElementById('parseBtn').addEventListener('click', renderResult);
@@ -625,14 +671,17 @@ IEA*1*000000125~</textarea>
       parsedSegments.textContent = 'Click "Parse EDI" to generate normalized segments.';
       parsedDetails.textContent = 'Details will appear here.';
       convertedOutput.textContent = 'Choose a conversion button: EDI to JSON / EDI to XML / EDI to CSV.';
+      setActiveConversion(null);
     });
 
     document.getElementById('sampleBtn').addEventListener('click', () => {
       ediInput.value = `ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000126*0*T*:~\nGS*PO*SENDER*RECEIVER*20260201*1200*126*X*004010~\nST*850*0002~\nBEG*00*NE*PO450001**20260201~\nN1*ST*DC-01*92*WH01~\nPO1*1*50*EA*21.50**VP*ITEM100~\nPO1*2*20*EA*9.99**VP*ITEM200~\nCTT*2~\nSE*7*0002~\nGE*1*126~\nIEA*1*000000126~`;
       renderResult();
+      setActiveConversion(null);
     });
 
     renderResult();
+    setActiveConversion(null);
   </script>
 
 </body>
