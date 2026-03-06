@@ -269,7 +269,7 @@
 
 <body>
 
-  <header class="hero">
+<header class="hero">
     <div class="wrap hero-grid">
       <div>
         <h1>Sachin Chauhan</h1>
@@ -417,9 +417,9 @@ Parsed JSON
     </section>
 
     <section>
-      <h2>EDI Utility (User Input → Parsed EDI → Details)</h2>
-      <p class="muted">Paste EDI text and click <strong>Parse EDI</strong>. The parser auto-detects delimiters from ISA when possible.</p>
-            <div class="edi-tool">
+      <h2>EDI Utility (User Input → Parsed EDI → Details → Conversions)</h2>
+      <p class="muted">Paste EDI text and click <strong>Parse EDI</strong>. Then convert parsed EDI into JSON, XML, or CSV.</p>
+      <div class="edi-tool">
         <label for="ediInput"><strong>Input EDI</strong></label>
         <textarea id="ediInput" aria-label="EDI input">ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000125*0*T*:~
 GS*PO*SENDER*RECEIVER*20260201*1200*125*X*004010~
@@ -433,6 +433,9 @@ GE*1*125~
 IEA*1*000000125~</textarea>
         <div class="btn-row">
           <button id="parseBtn" type="button">Parse EDI</button>
+          <button id="convertJsonBtn" type="button" class="secondary">EDI to JSON</button>
+          <button id="convertXmlBtn" type="button" class="secondary">EDI to XML</button>
+          <button id="convertCsvBtn" type="button" class="secondary">EDI to CSV</button>
           <button id="clearBtn" type="button" class="secondary">Clear</button>
           <button id="sampleBtn" type="button" class="secondary">Load 850 Sample</button>
         </div>
@@ -446,29 +449,9 @@ IEA*1*000000125~</textarea>
             <pre id="parsedDetails">Details will appear here.</pre>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>JSON Utility (User Input → Formatted JSON → Details)</h2>
-      <p class="muted">Paste JSON payload to validate and format it for easier inspection.</p>
-      <div class="edi-tool">
-        <label for="jsonInput"><strong>Input JSON</strong></label>
-        <textarea id="jsonInput" aria-label="JSON input">{"tradingPartner":"Retail-01","transactionSet":"850","poNumber":"PO450001","lineItems":[{"line":1,"qty":50,"uom":"EA","price":21.50},{"line":2,"qty":20,"uom":"EA","price":9.99}]}</textarea>
-        <div class="btn-row">
-          <button id="formatJsonBtn" type="button">Format JSON</button>
-          <button id="clearJsonBtn" type="button" class="secondary">Clear</button>
-          <button id="sampleJsonBtn" type="button" class="secondary">Load JSON Sample</button>
-        </div>
-        <div class="output-grid">
-          <div class="panel">
-            <h3>Formatted JSON</h3>
-            <pre id="formattedJson">Click "Format JSON" to view parsed JSON.</pre>
-          </div>
-          <div class="panel">
-            <h3>JSON Details</h3>
-            <pre id="jsonDetails">Details will appear here.</pre>
-          </div>
+        <div class="panel">
+          <h3>Converted Output</h3>
+          <pre id="convertedOutput">Choose a conversion button: EDI to JSON / EDI to XML / EDI to CSV.</pre>
         </div>
       </div>
     </section>
@@ -480,10 +463,7 @@ IEA*1*000000125~</textarea>
     const ediInput = document.getElementById('ediInput');
     const parsedSegments = document.getElementById('parsedSegments');
     const parsedDetails = document.getElementById('parsedDetails');
-
-    const jsonInput = document.getElementById('jsonInput');
-    const formattedJson = document.getElementById('formattedJson');
-    const jsonDetails = document.getElementById('jsonDetails');
+    const convertedOutput = document.getElementById('convertedOutput');
 
     function escapeHtml(str) {
       return str.replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
@@ -530,6 +510,7 @@ IEA*1*000000125~</textarea>
 
       return {
         segments,
+        split,
         elementSep,
         segmentTerm,
         details: {
@@ -558,90 +539,100 @@ IEA*1*000000125~</textarea>
       }).join('\n');
     }
 
+    function segmentsToJson(parsed) {
+      return parsed.split.map((parts) => ({
+        segment: parts[0] || '',
+        elements: parts.slice(1),
+      }));
+    }
+
+    function segmentsToXml(parsed) {
+      const rows = parsed.split.map((parts) => {
+        const seg = parts[0] || 'SEG';
+        const elements = parts.slice(1).map((el, i) => `    <element index="${i + 1}">${escapeHtml(el)}</element>`).join('\n');
+        return `  <segment id="${seg}">\n${elements}\n  </segment>`;
+      }).join('\n');
+      return `<edi>\n${rows}\n</edi>`;
+    }
+
+    function segmentsToCsv(parsed) {
+      const lines = ['segment,position,value'];
+      parsed.split.forEach((parts) => {
+        const seg = parts[0] || '';
+        parts.slice(1).forEach((el, i) => {
+          const val = String(el).replace(/"/g, '""');
+          lines.push(`${seg},${i + 1},"${val}"`);
+        });
+      });
+      return lines.join('\n');
+    }
+
     function renderResult() {
       const text = ediInput.value.trim();
       if (!text) {
         parsedSegments.textContent = 'No EDI input provided.';
         parsedDetails.textContent = 'Please paste EDI content first.';
-        return;
+        convertedOutput.textContent = 'Choose a conversion button: EDI to JSON / EDI to XML / EDI to CSV.';
+        return null;
       }
 
-      const { segments, elementSep, segmentTerm, details } = parseEdi(text);
-      parsedSegments.innerHTML = highlightSegments(segments, elementSep, segmentTerm);
+      const parsed = parseEdi(text);
+      parsedSegments.innerHTML = highlightSegments(parsed.segments, parsed.elementSep, parsed.segmentTerm);
 
+      const d = parsed.details;
       parsedDetails.textContent = [
-        `Transaction Set         : ${details.transactionSet}`,
-        `Transaction Control#    : ${details.controlNumber}`,
-        `Functional Group        : ${details.functionalGroup}`,
-        `Sender ID               : ${details.senderId}`,
-        `Receiver ID             : ${details.receiverId}`,
-        `PO Number               : ${details.poNumber}`,
-        `BHT Reference           : ${details.bhtReference}`,
-        `Reported Line Count     : ${details.reportedLineCount}`,
-        `Interchange Segments    : ${details.interchangeSegments}`,
-        `Element Delimiter       : ${elementSep}`,
-        `Segment Terminator      : ${segmentTerm}`,
+        `Transaction Set         : ${d.transactionSet}`,
+        `Transaction Control#    : ${d.controlNumber}`,
+        `Functional Group        : ${d.functionalGroup}`,
+        `Sender ID               : ${d.senderId}`,
+        `Receiver ID             : ${d.receiverId}`,
+        `PO Number               : ${d.poNumber}`,
+        `BHT Reference           : ${d.bhtReference}`,
+        `Reported Line Count     : ${d.reportedLineCount}`,
+        `Interchange Segments    : ${d.interchangeSegments}`,
+        `Element Delimiter       : ${parsed.elementSep}`,
+        `Segment Terminator      : ${parsed.segmentTerm}`,
       ].join('\n');
+
+      return parsed;
     }
 
-    function renderJsonResult() {
-      const text = jsonInput.value.trim();
-      if (!text) {
-        formattedJson.textContent = 'No JSON input provided.';
-        jsonDetails.textContent = 'Please paste JSON content first.';
-        return;
-      }
-      try {
-        const obj = JSON.parse(text);
-        formattedJson.textContent = JSON.stringify(obj, null, 2);
-        const topKeys = Object.keys(obj);
-        const itemCount = Array.isArray(obj.lineItems) ? obj.lineItems.length : 0;
-        jsonDetails.textContent = [
-          `Valid JSON           : Yes`,
-          `Top-level Keys       : ${topKeys.join(', ') || 'N/A'}`,
-          `Transaction Set      : ${obj.transactionSet || 'N/A'}`,
-          `PO Number            : ${obj.poNumber || 'N/A'}`,
-          `Line Items Count     : ${itemCount}`,
-        ].join('\n');
-      } catch (err) {
-        formattedJson.textContent = 'Invalid JSON.';
-        jsonDetails.textContent = `Error: ${err.message}`;
-      }
+    function convertToJson() {
+      const parsed = renderResult();
+      if (!parsed) return;
+      convertedOutput.textContent = JSON.stringify(segmentsToJson(parsed), null, 2);
+    }
+
+    function convertToXml() {
+      const parsed = renderResult();
+      if (!parsed) return;
+      convertedOutput.textContent = segmentsToXml(parsed);
+    }
+
+    function convertToCsv() {
+      const parsed = renderResult();
+      if (!parsed) return;
+      convertedOutput.textContent = segmentsToCsv(parsed);
     }
 
     document.getElementById('parseBtn').addEventListener('click', renderResult);
+    document.getElementById('convertJsonBtn').addEventListener('click', convertToJson);
+    document.getElementById('convertXmlBtn').addEventListener('click', convertToXml);
+    document.getElementById('convertCsvBtn').addEventListener('click', convertToCsv);
+
     document.getElementById('clearBtn').addEventListener('click', () => {
       ediInput.value = '';
       parsedSegments.textContent = 'Click "Parse EDI" to generate normalized segments.';
       parsedDetails.textContent = 'Details will appear here.';
+      convertedOutput.textContent = 'Choose a conversion button: EDI to JSON / EDI to XML / EDI to CSV.';
     });
+
     document.getElementById('sampleBtn').addEventListener('click', () => {
       ediInput.value = `ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000126*0*T*:~\nGS*PO*SENDER*RECEIVER*20260201*1200*126*X*004010~\nST*850*0002~\nBEG*00*NE*PO450001**20260201~\nN1*ST*DC-01*92*WH01~\nPO1*1*50*EA*21.50**VP*ITEM100~\nPO1*2*20*EA*9.99**VP*ITEM200~\nCTT*2~\nSE*7*0002~\nGE*1*126~\nIEA*1*000000126~`;
       renderResult();
     });
 
-    document.getElementById('formatJsonBtn').addEventListener('click', renderJsonResult);
-    document.getElementById('clearJsonBtn').addEventListener('click', () => {
-      jsonInput.value = '';
-      formattedJson.textContent = 'Click "Format JSON" to view parsed JSON.';
-      jsonDetails.textContent = 'Details will appear here.';
-    });
-    document.getElementById('sampleJsonBtn').addEventListener('click', () => {
-      jsonInput.value = JSON.stringify({
-        tradingPartner: 'Retail-01',
-        transactionSet: '850',
-        poNumber: 'PO450002',
-        currency: 'USD',
-        lineItems: [
-          { line: 1, qty: 10, uom: 'EA', price: 15.25, sku: 'SKU-100' },
-          { line: 2, qty: 5, uom: 'EA', price: 42.0, sku: 'SKU-220' },
-        ],
-      });
-      renderJsonResult();
-    });
-
     renderResult();
-    renderJsonResult();
   </script>
 
 </body>
