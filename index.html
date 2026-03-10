@@ -1,14 +1,317 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
+<html lang="en" data-theme="dark"></html>
 <head>
-  <meta charset="UTF-8" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sachin Chauhan | EDI Portfolio</title>
-  <meta name="description" content="EDI developer portfolio with interactive EDI workbench." />
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="Sachin Chauhan - EDI Developer portfolio with interactive EDI workbench for X12 healthcare and retail integrations." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-2: #101832;
+      --card: rgba(17, 26, 51, 0.62);
+      --card-strong: rgba(26, 37, 71, 0.85);
+      --text: #edf2ff;
+      --muted: #b4bfd8;
+      --line: rgba(130, 157, 223, 0.28);
+      --accent: #59c3ff;
+      --accent-2: #8a7dff;
+      --success: #34d399;
+      --warn: #fb7185;
+      --chip: rgba(38, 52, 95, 0.88);
+      --glow: 0 0 0 1px rgba(115, 167, 255, 0.4), 0 12px 40px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+      --font: "Inter", "Segoe UI", Roboto, system-ui, sans-serif;
+      --mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f0f5ff;
+      --bg-2: #dfe8ff;
+      --card: rgba(255, 255, 255, 0.75);
+      --card-strong: rgba(255, 255, 255, 0.94);
+      --text: #131b32;
+      --muted: #4f5f84;
+      --line: rgba(45, 83, 177, 0.22);
+      --accent: #0a84ff;
+      --accent-2: #5b4fff;
+      --chip: rgba(230, 239, 255, 0.9);
+      --glow: 0 0 0 1px rgba(66, 124, 255, 0.3), 0 10px 24px rgba(31, 59, 127, 0.16);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: linear-gradient(120deg, var(--bg), var(--bg-2), var(--bg));
+      background-size: 180% 180%;
+      animation: bgShift 18s ease infinite;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color .35s ease, color .35s ease;
+    }
+
+    @keyframes bgShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #bgGrid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(95,130,201,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(95,130,201,0.08) 1px, transparent 1px);
+      background-size: 35px 35px;
+      mask-image: radial-gradient(circle at 50% 15%, rgba(0,0,0,0.7), transparent 78%);
+      z-index: -3;
+    }
+
+    #particles {
+      position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    }
+
+    .wrap { width: min(1200px, 94vw); margin: 0 auto; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--card-strong) 88%, transparent);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 10px 0;
+    }
+    .brand { font-weight: 800; letter-spacing: .03em; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; padding: 8px 10px; border-radius: 10px; border: 1px solid transparent;
+      transition: .25s ease;
+      font-size: .92rem;
+    }
+    .nav-links a.active, .nav-links a:hover {
+      color: var(--text); border-color: var(--line); background: rgba(90, 128, 225, 0.12);
+    }
+
+    .theme-toggle { border: 1px solid var(--line); background: var(--chip); color: var(--text); border-radius: 999px; padding: 8px 12px; cursor: pointer; }
+
+    section { scroll-margin-top: 90px; }
+
+    .hero {
+      margin-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--glow);
+      backdrop-filter: blur(10px);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 20px;
+    }
+    h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 3rem); }
+    .subtitle {
+      min-height: 28px;
+      margin: 8px 0 10px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .muted { color: var(--muted); }
+
+    .glass {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--glow);
+      backdrop-filter: blur(10px);
+    }
+
+    .section {
+      margin-top: 20px; padding: 20px;
+    }
+
+    .head {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      margin-bottom: 14px;
+    }
+    .head h2 { margin: 0; font-size: 1.25rem; }
+
+    .cards-v { display: grid; gap: 14px; }
+    .card {
+      background: var(--card-strong);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .card:hover { transform: translateY(-4px) scale(1.01); border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); box-shadow: var(--glow); }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: var(--chip);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: .83rem;
+      transition: .2s ease;
+    }
+    .chip:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px var(--accent); }
+
+    .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .metric { text-align: center; }
+    .metric .n { font-size: 1.7rem; font-weight: 800; color: var(--accent); }
+
+    .progress-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 16px; }
+    .prog-item label { display: flex; justify-content: space-between; font-size: .9rem; }
+    .bar { height: 8px; border-radius: 999px; background: rgba(99, 125, 189, .24); overflow: hidden; }
+    .bar > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 1.2s ease; }
+
+    .tooltip { position: relative; border-bottom: 1px dashed var(--accent); cursor: help; }
+    .tooltip:hover::after {
+      content: attr(data-tip);
+      position: absolute; left: 0; bottom: 120%;
+      width: 240px; padding: 8px;
+      font-size: .78rem;
+      border-radius: 10px;
+      color: #e7f1ff;
+      background: #0e1b36;
+      border: 1px solid #416bb1;
+      z-index: 5;
+    }
+
+    .timeline { display: grid; gap: 12px; }
+    .tl-item { padding-left: 16px; border-left: 2px solid var(--line); position: relative; }
+    .tl-item::before { content: ''; position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+
+    .project-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .flip {
+      perspective: 1100px;
+      min-height: 190px;
+    }
+    .flip-inner {
+      position: relative; height: 100%; transform-style: preserve-3d; transition: transform .5s ease;
+    }
+    .flip:hover .flip-inner { transform: rotateY(180deg); }
+    .face {
+      position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 14px;
+      border: 1px solid var(--line); background: var(--card-strong);
+    }
+    .face.back { transform: rotateY(180deg); }
+
+    .charts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .ring {
+      width: 130px; height: 130px; border-radius: 50%;
+      margin: 8px auto;
+      display: grid; place-items: center;
+      background: conic-gradient(var(--accent) calc(var(--p) * 1%), rgba(105,131,198,.25) 0);
+    }
+    .ring span { width: 92px; height: 92px; border-radius: 50%; background: var(--bg); display:grid; place-items:center; font-weight:700; }
+
+    .trend, .heatmap, .radar {
+      width: 100%; min-height: 180px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card-strong);
+      padding: 10px;
+    }
+
+    .bars { display: flex; align-items: end; gap: 8px; height: 130px; }
+    .bars i { flex: 1; background: linear-gradient(180deg, var(--accent), var(--accent-2)); border-radius: 6px 6px 0 0; opacity: .8; }
+
+    .heatmap-grid { display: grid; grid-template-columns: repeat(20, 1fr); gap: 4px; }
+    .heatmap-grid i { display:block; aspect-ratio: 1; border-radius: 2px; background: rgba(110,130,173,.25); }
+
+    .workbench-wrap { position: relative; min-height: 520px; }
+    .workbench {
+      position: relative;
+      resize: both; overflow: auto;
+      min-height: 460px; min-width: 320px;
+      max-width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card-strong);
+      box-shadow: var(--glow);
+    }
+    .wb-head {
+      cursor: move;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 10px 12px; border-bottom: 1px solid var(--line);
+      background: rgba(45, 66, 120, .28);
+      position: sticky; top: 0; z-index: 2;
+    }
+
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px; }
+    button, .btn {
+      border: 1px solid var(--line); border-radius: 10px;
+      background: var(--chip); color: var(--text);
+      padding: 8px 10px; cursor: pointer; text-decoration: none;
+      transition: .2s ease;
+    }
+    button.primary { background: linear-gradient(90deg, #f97316, #fb923c); color: #101010; border-color: transparent; font-weight: 700; }
+    button:hover, .btn:hover { transform: translateY(-2px); box-shadow: var(--glow); }
+
+    .wb-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 10px; padding: 10px; }
+    .panel { border: 1px solid var(--line); border-radius: 12px; background: rgba(7, 14, 29, .55); overflow: hidden; }
+    .panel h3 { margin: 0; padding: 10px; border-bottom: 1px solid var(--line); font-size: .95rem; }
+
+    .editor-wrap { display: grid; grid-template-columns: 44px 1fr; height: 260px; }
+    .line-nos {
+      margin: 0; padding: 10px 6px; background: rgba(255,255,255,.03);
+      color: var(--muted); font-family: var(--mono); font-size: .8rem; overflow: hidden;
+    }
+    textarea, pre, code { font-family: var(--mono); }
+    #ediInput {
+      border: 0; outline: 0; width: 100%; height: 100%; resize: none;
+      background: transparent; color: #dfe8ff; padding: 10px; font-size: .84rem;
+    }
+    pre { margin: 0; padding: 10px; white-space: pre-wrap; font-size: .82rem; }
+
+    .seg { color: #66d3ff; font-weight: 700; }
+    .elm { color: #c3d7ff; }
+    .val { color: #98f5d0; }
+
+    .error-list { margin: 0; padding: 10px 22px; color: #ffb4bf; }
+
+    .tree ul { list-style: none; padding-left: 14px; margin: 0; }
+    .tree details { padding: 6px 10px; border-bottom: 1px dashed rgba(130,157,223,.2); }
+
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+
+    .contact-form { display: grid; gap: 8px; }
+    .contact-form input, .contact-form textarea {
+      width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--line);
+      background: rgba(255,255,255,.03); color: var(--text);
+    }
+    .ok-msg { color: var(--success); font-weight: 600; display:none; }
+
+    .social-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+    .fade-up { opacity: 0; transform: translateY(18px); transition: .7s ease; }
+    .fade-up.in { opacity: 1; transform: translateY(0); }
+
+    .fab-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .kbd { font-family: var(--mono); background: rgba(255,255,255,.09); border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; font-size:.78rem; }
+
+    @media (max-width: 980px) {
+      .hero, .wb-grid, .metric-grid, .charts, .project-grid, .social-proof, .compare { grid-template-columns: 1fr; }
+      .nav-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media print {
+      .nav, #particles, #bgGrid, .toolbar, .wb-head, .project-toolbar { display: none !important; }
+      body { background: #fff; color: #000; }
+      .glass, .card, .panel { box-shadow: none; border: 1px solid #bbb; background: #fff; }
+    }
+  </style>
 </head>
 <body>
-  <canvas id="particles" aria-hidden="true"></canvas>
+
+<canvas id="particles" aria-hidden="true"></canvas>
   <div id="bgGrid" aria-hidden="true"></div>
 
   <nav class="nav" aria-label="Main navigation">
@@ -16,13 +319,14 @@
       <div class="brand">Sachin Chauhan • EDI Portfolio</div>
       <div class="nav-links" id="navLinks">
         <a href="#home">Home</a>
+        <a href="#numbers">EDI by Numbers</a>
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
         <a href="#ecosystem">Integration Ecosystem</a>
         <a href="#workbench">EDI Workbench</a>
+        <a href="#contact">Contact</a>
       </div>
-      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙 Dark</button>
     </div>
   </nav>
 
@@ -31,10 +335,10 @@
       <div>
         <h1>Sachin Chauhan</h1>
         <p class="subtitle" id="typingSubtitle"></p>
-        <p class="muted">EDI specialist focused on retail X12 and healthcare HIPAA transactions, with strong production support, partner onboarding, and data quality automation.</p>
+        <p class="muted">EDI specialist focused on retail X12 and healthcare HIPAA data exchange. I design resilient partner integrations, automate validations, and optimize end-to-end B2B transaction visibility.</p>
         <div class="fab-row" style="margin-top:10px;">
           <a class="btn" href="#workbench">Open EDI Workbench</a>
-          <button id="printResume" class="btn" type="button">Print / PDF Resume</button>
+          <button id="printResume" class="btn">Print / PDF Resume</button>
         </div>
       </div>
       <aside class="glass" style="padding:14px;">
@@ -46,18 +350,56 @@
       </aside>
     </section>
 
+    <section id="numbers" class="section glass fade-up">
+      <div class="head"><h2>EDI by the Numbers</h2></div>
+      <div class="metric-grid">
+        <div class="card metric"><div class="n" data-count="4">0</div><div class="muted">Years Experience</div></div>
+        <div class="card metric"><div class="n" data-count="200">0</div><div class="muted">Daily Txn Processed</div></div>
+        <div class="card metric"><div class="n" data-count="50">0</div><div class="muted">Trading Partners</div></div>
+        <div class="card metric"><div class="n" data-count="30">0</div><div class="muted">Efficiency Gain %</div></div>
+      </div>
+      <div class="charts" style="margin-top:12px;">
+        <div class="card" style="text-align:center;"><h3>Compliance Rate</h3><div class="ring" style="--p:96"><span>96%</span></div></div>
+        <div class="card" style="text-align:center;"><h3>Partner Satisfaction</h3><div class="ring" style="--p:92"><span>92%</span></div></div>
+        <div class="card" style="text-align:center;"><h3>Error Reduction</h3><div class="ring" style="--p:25"><span>25%</span></div></div>
+      </div>
+      <div class="charts" style="margin-top:12px;">
+        <div class="trend">
+          <h3>Transaction Volume Trend</h3>
+          <div class="bars" aria-label="Bar chart transaction trend">
+            <i style="height:35%"></i><i style="height:45%"></i><i style="height:52%"></i><i style="height:61%"></i><i style="height:68%"></i><i style="height:76%"></i><i style="height:88%"></i>
+          </div>
+        </div>
+        <div class="heatmap">
+          <h3>Activity Heatmap</h3>
+          <div class="heatmap-grid" id="heatmap"></div>
+        </div>
+        <div class="radar">
+          <h3>Skills Radar (Visual)</h3>
+          <svg viewBox="0 0 220 150" width="100%" height="130" aria-label="skills radar chart">
+            <polyline points="20,120 60,45 120,30 185,58 200,118 120,130 20,120" fill="rgba(80,160,255,.2)" stroke="#59c3ff" stroke-width="2" />
+            <text x="10" y="125" fill="currentColor" font-size="10">X12</text>
+            <text x="58" y="40" fill="currentColor" font-size="10">AS2</text>
+            <text x="117" y="25" fill="currentColor" font-size="10">SQL</text>
+            <text x="182" y="55" fill="currentColor" font-size="10">Mapping</text>
+            <text x="192" y="125" fill="currentColor" font-size="10">Support</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
     <section id="experience" class="section glass fade-up">
       <div class="head"><h2>Timeline & Experience</h2></div>
       <div class="timeline">
         <article class="card tl-item">
           <h3>Infoconn Systems, Faridabad</h3>
           <p><strong>EDI Developer</strong> • Oct 2022 – Present</p>
-          <p>Designed and supported Retail X12 flows (850/856/810/940/875), improved AS2 connectivity, and reduced rejections by 25%.</p>
+          <p>Designed and supported <span class="tooltip" data-tip="ANSI X12 retail transactions for PO/ASN/Invoice and WMS flows">Retail X12</span> flows (850/856/810/940/875), improved AS2 connectivity, and reduced rejections by 25%.</p>
         </article>
         <article class="card tl-item">
           <h3>Data Solutions India, Faridabad</h3>
           <p><strong>EDI Operations Specialist</strong> • Mar 2022 – Oct 2022</p>
-          <p>Processed 200+ daily healthcare EDI transactions (837/835), resolved 997 acknowledgment failures, and documented issue playbooks.</p>
+          <p>Processed 200+ daily <span class="tooltip" data-tip="HIPAA EDI claims and remittance transactions">healthcare EDI</span> transactions (837/835), resolved acknowledgment failures, and documented issue playbooks.</p>
         </article>
         <article class="card tl-item">
           <h3>Data Solutions India, Faridabad</h3>
@@ -70,21 +412,64 @@
     <section id="projects" class="section glass fade-up">
       <div class="head"><h2>Project Showcase</h2></div>
       <div class="project-toolbar" id="projectFilters">
-        <button class="btn" type="button" data-filter="all">All</button>
-        <button class="btn" type="button" data-filter="edi">EDI</button>
-        <button class="btn" type="button" data-filter="python">Python</button>
-        <button class="btn" type="button" data-filter="android">Android</button>
+        <button class="btn" data-filter="all">All</button>
+        <button class="btn" data-filter="edi">EDI</button>
+        <button class="btn" data-filter="python">Python</button>
+        <button class="btn" data-filter="android">Android</button>
       </div>
       <div class="project-grid" id="projectGrid">
-        <article class="flip" data-tags="edi csharp"><div class="flip-inner"><div class="face front"><h3>Automated X12 to JSON Parser</h3><p>Standardized inconsistent 810 invoices before ERP ingestion.</p></div><div class="face back"><h3>Tech</h3><div class="chips"><span class="chip">.NET</span><span class="chip">C#</span><span class="chip">X12</span></div></div></div></article>
-        <article class="flip" data-tags="js"><div class="flip-inner"><div class="face front"><h3>AURA Discord Bot</h3><p>Reaction-based engagement and leaderboard automation.</p></div><div class="face back"><h3>Tech</h3><div class="chips"><span class="chip">JavaScript</span><span class="chip">JSON</span></div></div></div></article>
-        <article class="flip" data-tags="android"><div class="flip-inner"><div class="face front"><h3>Slide-Volume App</h3><p>Edge-swipe volume controller without hardware buttons.</p></div><div class="face back"><h3>Tech</h3><div class="chips"><span class="chip">Kotlin</span><span class="chip">Android</span></div></div></div></article>
-        <article class="flip" data-tags="python edi"><div class="flip-inner"><div class="face front"><h3>BombSquad Server Auth</h3><p>Server ID/password gate for controlled private access.</p></div><div class="face back"><h3>Tech</h3><div class="chips"><span class="chip">Python</span><span class="chip">Auth</span></div></div></div></article>
+        <article class="flip" data-tags="edi csharp">
+          <div class="flip-inner">
+            <div class="face front"><h3>Automated X12 to JSON Parser</h3><p>Standardized inconsistent 810 invoices before ERP ingestion.</p><div class="chips"><span class="chip">.NET</span><span class="chip">C#</span><span class="chip">X12</span></div></div>
+            <div class="face back"><h3>Impact</h3><p>Reduced mapping exceptions and improved parser reliability for partner payload variance.</p></div>
+          </div>
+        </article>
+        <article class="flip" data-tags="bot js">
+          <div class="flip-inner">
+            <div class="face front"><h3>AURA Discord Bot</h3><p>Reaction-based engagement and leaderboard automation.</p><div class="chips"><span class="chip">JavaScript</span><span class="chip">JSON</span></div></div>
+            <div class="face back"><h3>Impact</h3><p>Optimized event processing and data-backed engagement tracking.</p></div>
+          </div>
+        </article>
+        <article class="flip" data-tags="android">
+          <div class="flip-inner">
+            <div class="face front"><h3>Slide-Volume App</h3><p>Edge-swipe volume controller without hardware buttons.</p><div class="chips"><span class="chip">Kotlin</span><span class="chip">Android</span></div></div>
+            <div class="face back"><h3>Impact</h3><p>Created smooth gesture UX and lightweight utility interaction model.</p></div>
+          </div>
+        </article>
+        <article class="flip" data-tags="python edi">
+          <div class="flip-inner">
+            <div class="face front"><h3>BombSquad Server Auth</h3><p>Server ID/password gate for controlled private access.</p><div class="chips"><span class="chip">Python</span><span class="chip">Auth</span></div></div>
+            <div class="face back"><h3>Impact</h3><p>Improved lobby security and access control with configurable policies.</p></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="ecosystem" class="section glass fade-up">
+      <div class="head"><h2>Integration Ecosystem</h2></div>
+      <div class="card" style="overflow:auto;">
+        <svg viewBox="0 0 900 220" width="100%" height="220" aria-label="Integration ecosystem flow">
+          <defs><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#59c3ff"/></marker></defs>
+          <g fill="none" stroke="#59c3ff" stroke-width="2" marker-end="url(#arr)">
+            <path d="M130 60 L260 60"/><path d="M360 60 L500 60"/><path d="M600 60 L740 60"/>
+            <path d="M740 120 L600 120"/><path d="M500 120 L360 120"/><path d="M260 120 L130 120"/>
+          </g>
+          <g fill="#15284d" stroke="#6ea4ff">
+            <rect x="40" y="35" width="90" height="40" rx="10"/><rect x="260" y="35" width="100" height="40" rx="10"/>
+            <rect x="500" y="35" width="100" height="40" rx="10"/><rect x="740" y="35" width="120" height="40" rx="10"/>
+            <rect x="40" y="95" width="90" height="40" rx="10"/><rect x="260" y="95" width="100" height="40" rx="10"/>
+            <rect x="500" y="95" width="100" height="40" rx="10"/><rect x="740" y="95" width="120" height="40" rx="10"/>
+          </g>
+          <g fill="#dbe8ff" font-size="12" font-family="Inter, sans-serif">
+            <text x="66" y="60">ERP</text><text x="285" y="60">Mapper</text><text x="524" y="60">AS2/SFTP</text><text x="760" y="60">Partner</text>
+            <text x="55" y="120">997 ACK</text><text x="275" y="120">Monitor</text><text x="533" y="120">Alerts</text><text x="770" y="120">Support</text>
+          </g>
+        </svg>
       </div>
     </section>
 
     <section id="skills" class="section glass fade-up">
-      <div class="head"><h2>Tech Stack + Activity Heatmap + Skills Radar (Visual)</h2></div>
+      <div class="head"><h2>Tech Stack & Certification Wall</h2></div>
       <div class="chips" style="margin-bottom:12px;">
         <span class="chip">C#</span><span class="chip">Python</span><span class="chip">ANSI X12</span><span class="chip">HIPAA</span><span class="chip">AS2</span><span class="chip">SQL</span><span class="chip">JSON</span><span class="chip">CSV</span>
       </div>
@@ -94,38 +479,18 @@
         <div class="prog-item"><label>Production Support <span>95%</span></label><div class="bar"><i data-w="95%"></i></div></div>
         <div class="prog-item"><label>SQL Monitoring <span>84%</span></label><div class="bar"><i data-w="84%"></i></div></div>
       </div>
-      <div class="charts" style="margin-top:12px;">
-        <div class="heatmap">
-          <h3>Activity Heatmap (GitHub commits/events)</h3>
-          <div class="fab-row" style="margin-bottom:8px;">
-            <input id="githubUser" aria-label="GitHub username" placeholder="GitHub username" value="sachinchauhan" />
-            <button id="loadGithubBtn" type="button">Load Activity</button>
-          </div>
-          <div class="heatmap-grid" id="heatmap"></div>
-        </div>
-        <div class="radar">
-          <h3>Skills Radar (Visual)</h3>
-          <svg viewBox="0 0 220 150" width="100%" height="140" aria-label="skills radar chart">
-            <polyline points="20,120 60,45 120,30 185,58 200,118 120,130 20,120" fill="rgba(80,160,255,.2)" stroke="#59c3ff" stroke-width="2" />
-            <text x="10" y="125" fill="currentColor" font-size="10">X12</text>
-            <text x="58" y="40" fill="currentColor" font-size="10">AS2</text>
-            <text x="117" y="25" fill="currentColor" font-size="10">SQL</text>
-            <text x="182" y="55" fill="currentColor" font-size="10">Mapping</text>
-            <text x="192" y="125" fill="currentColor" font-size="10">Support</text>
-          </svg>
-        </div>
+      <div class="social-proof" style="margin-top:12px;">
+        <div class="card"><strong>NASSCOM</strong><p>Software Developer</p></div>
+        <div class="card"><strong>NASSCOM</strong><p>Web Developer</p></div>
+        <div class="card"><strong>NASSCOM</strong><p>Junior Data Associate</p></div>
       </div>
     </section>
 
-    <section id="ecosystem" class="section glass fade-up">
-      <div class="head"><h2>Integration Ecosystem</h2></div>
-      <div class="card" style="overflow:auto;">
-        <svg viewBox="0 0 900 220" width="100%" height="220" aria-label="Integration ecosystem flow">
-          <defs><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#59c3ff"/></marker></defs>
-          <g fill="none" stroke="#59c3ff" stroke-width="2" marker-end="url(#arr)"><path d="M130 60 L260 60"/><path d="M360 60 L500 60"/><path d="M600 60 L740 60"/></g>
-          <g fill="#15284d" stroke="#6ea4ff"><rect x="40" y="35" width="90" height="40" rx="10"/><rect x="260" y="35" width="100" height="40" rx="10"/><rect x="500" y="35" width="100" height="40" rx="10"/><rect x="740" y="35" width="120" height="40" rx="10"/></g>
-          <g fill="#dbe8ff" font-size="12"><text x="66" y="60">ERP</text><text x="285" y="60">Mapper</text><text x="524" y="60">AS2/SFTP</text><text x="760" y="60">Partner</text></g>
-        </svg>
+    <section id="case" class="section glass fade-up">
+      <div class="head"><h2>Case Studies</h2></div>
+      <div class="cards-v">
+        <article class="card"><h3>Retail 810 Invoice Stabilization</h3><p><strong>Challenge:</strong> inconsistent partner element population caused ERP posting failures.</p><p><strong>Solution:</strong> added C# pre-validation and normalization rules in translator maps.</p><p><strong>Outcome:</strong> reduced rejects by 25% and improved reconciliation cycle time.</p></article>
+        <article class="card"><h3>Healthcare Claim ACK Resolution</h3><p><strong>Challenge:</strong> rising 997 rejects for 837 claim submissions.</p><p><strong>Solution:</strong> mapped reject codes, introduced monitoring checks and payer escalation runbook.</p><p><strong>Outcome:</strong> faster root-cause turnaround and fewer repeated claim failures.</p></article>
       </div>
     </section>
 
@@ -133,27 +498,40 @@
       <div class="head"><h2>EDI Workbench</h2><div class="muted">Shortcuts: <span class="kbd">Ctrl+Enter</span> Parse, <span class="kbd">Ctrl+J</span> JSON, <span class="kbd">Ctrl+M</span> XML, <span class="kbd">Ctrl+L</span> CSV</div></div>
       <div class="workbench-wrap">
         <div class="workbench" id="workbenchPanel" aria-label="Draggable EDI workbench">
-          <div class="wb-head" id="dragHandle"><strong>EDI Parser Panel</strong></div>
+          <div class="wb-head" id="dragHandle"><strong>EDI Parser Panel</strong><span class="muted">Drag me • Resize corner ↘</span></div>
           <div class="toolbar">
             <label class="btn" for="sampleSelect">Sample</label>
             <select id="sampleSelect" aria-label="Select EDI sample">
-              <option value="850">850 Purchase Order</option><option value="837">837 Claim</option><option value="835">835 Remittance</option><option value="856">856 ASN</option><option value="810">810 Invoice</option>
+              <option value="850">850 Purchase Order</option>
+              <option value="837">837 Claim</option>
+              <option value="835">835 Remittance</option>
+              <option value="856">856 ASN</option>
+              <option value="810">810 Invoice</option>
             </select>
-            <button class="primary" id="parseBtn" type="button">Parse EDI</button>
-            <button id="toJsonBtn" type="button">EDI to JSON</button>
-            <button id="toXmlBtn" type="button">EDI to XML</button>
-            <button id="toCsvBtn" type="button">EDI to CSV</button>
-            <button id="prettyToggle" type="button">Pretty: ON</button>
-            <button id="copyOut" type="button">Copy Output</button>
-            <button id="downloadOut" type="button">Download Output</button>
-            <button id="clearBtn" type="button">Clear</button>
+            <button class="primary" id="parseBtn">Parse EDI</button>
+            <button id="toJsonBtn">EDI to JSON</button>
+            <button id="toXmlBtn">EDI to XML</button>
+            <button id="toCsvBtn">EDI to CSV</button>
+            <button id="prettyToggle">Pretty: ON</button>
+            <button id="copyOut">Copy Output</button>
+            <button id="downloadOut">Download Output</button>
+            <button id="clearBtn">Clear</button>
             <label class="btn" for="fileInput">Upload .edi/.txt/.x12</label>
             <input id="fileInput" type="file" accept=".edi,.txt,.x12" hidden />
           </div>
 
           <div class="wb-grid">
-            <div class="panel"><h3>Input EDI</h3><div id="dropZone" class="editor-wrap"><pre class="line-nos" id="lineNos">1</pre><textarea id="ediInput" spellcheck="false"></textarea></div></div>
-            <div class="panel tree"><h3>Segment Tree</h3><div id="segmentTree" style="max-height:260px;overflow:auto;"></div></div>
+            <div class="panel">
+              <h3>Input EDI</h3>
+              <div id="dropZone" class="editor-wrap" aria-label="EDI input editor">
+                <pre class="line-nos" id="lineNos">1</pre>
+                <textarea id="ediInput" spellcheck="false" aria-label="EDI input text area"></textarea>
+              </div>
+            </div>
+            <div class="panel tree">
+              <h3>Segment Tree</h3>
+              <div id="segmentTree" style="max-height:260px;overflow:auto;"></div>
+            </div>
           </div>
 
           <div class="compare">
@@ -168,10 +546,365 @@
         </div>
       </div>
     </section>
+
+    <section id="contact" class="section glass fade-up">
+      <div class="head"><h2>Contact & Recommendations</h2></div>
+      <div class="social-proof">
+        <div class="card"><p>“Strong ownership in production EDI support and partner onboarding.”</p><small class="muted">– Team Lead</small></div>
+        <div class="card"><p>“Reliable in urgent claim rejection analysis and quick fixes.”</p><small class="muted">– Operations Manager</small></div>
+        <div class="card"><p>“Bridges technical detail and business communication effectively.”</p><small class="muted">– Integration Partner</small></div>
+      </div>
+      <form class="contact-form card" id="contactForm" style="margin-top:12px;">
+        <input aria-label="Name" name="name" placeholder="Your name" required />
+        <input aria-label="Email" type="email" name="email" placeholder="Your email" required />
+        <textarea aria-label="Message" name="message" rows="4" placeholder="Message" required></textarea>
+        <button class="primary" type="submit">Send Message</button>
+        <div id="okMsg" class="ok-msg">✅ Message sent successfully.</div>
+      </form>
+    </section>
   </main>
 
-  <footer>© 2026 Sachin Chauhan • EDI Developer Portfolio</footer>
+  <footer style="text-align:center;padding:18px;color:var(--muted);">© 2026 Sachin Chauhan • EDI Developer Portfolio</footer>
 
-  <script src="script.js" defer></script>
+  <script>
+    const STORAGE_KEY = 'edi_portfolio_state_v3';
+    const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+    // Theme toggle
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeToggle');
+    const savedTheme = state.theme || 'dark';
+    root.setAttribute('data-theme', savedTheme);
+    themeBtn.textContent = savedTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+    themeBtn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      themeBtn.textContent = next === 'dark' ? '🌙 Dark' : '☀️ Light';
+      saveState({ theme: next });
+    });
+
+    function saveState(partial) {
+      Object.assign(state, partial);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    // Typing subtitle
+    const subtitleTexts = ['EDI Developer • ANSI X12 • B2B Integration', 'Retail + Healthcare EDI Automation', 'Parser / Mapping / Support / Monitoring'];
+    let subtitleIndex = 0, charIndex = 0, deleting = false;
+    const subtitleEl = document.getElementById('typingSubtitle');
+    function typeLoop() {
+      const current = subtitleTexts[subtitleIndex];
+      subtitleEl.textContent = current.slice(0, charIndex);
+      if (!deleting && charIndex < current.length) charIndex++;
+      else if (deleting && charIndex > 0) charIndex--;
+      else if (!deleting) deleting = true;
+      else { deleting = false; subtitleIndex = (subtitleIndex + 1) % subtitleTexts.length; }
+      setTimeout(typeLoop, deleting ? 38 : 72);
+    }
+    typeLoop();
+
+    // Sticky nav active state + smooth hash
+    const sections = [...document.querySelectorAll('main section, #home')];
+    const navLinks = [...document.querySelectorAll('#navLinks a')];
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const id = e.target.id;
+          navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+          history.replaceState(null, '', '#' + id);
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: .02 });
+    sections.forEach((s) => s.id && navObserver.observe(s));
+
+    // scroll reveal
+    const reveal = new IntersectionObserver((ents) => {
+      ents.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); }
+      });
+    }, { threshold: .1 });
+    document.querySelectorAll('.fade-up').forEach((el) => reveal.observe(el));
+
+    // counters
+    const countEls = document.querySelectorAll('[data-count]');
+    const countObs = new IntersectionObserver((ents) => {
+      ents.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target; const target = +el.dataset.count; let n = 0;
+        const step = Math.max(1, Math.ceil(target / 42));
+        const t = setInterval(() => {
+          n += step; if (n >= target) { n = target; clearInterval(t); }
+          el.textContent = n;
+        }, 26);
+        countObs.unobserve(el);
+      });
+    }, { threshold: .6 });
+    countEls.forEach((el) => countObs.observe(el));
+
+    // skill bars animation
+    const bars = document.querySelectorAll('.bar i');
+    const barObs = new IntersectionObserver((ents)=>{
+      ents.forEach((e)=>{ if(e.isIntersecting){ e.target.style.width=e.target.dataset.w; barObs.unobserve(e.target);} });
+    },{threshold:.4});
+    bars.forEach(b=>barObs.observe(b));
+
+    // heatmap init
+    const heat = document.getElementById('heatmap');
+    for (let i = 0; i < 140; i++) {
+      const d = document.createElement('i');
+      const v = (Math.sin(i * 0.37) + 1) / 2;
+      d.style.background = `rgba(89,195,255,${0.12 + v * 0.72})`;
+      heat.appendChild(d);
+    }
+
+    // project filter
+    const filterBtns = document.querySelectorAll('#projectFilters button');
+    const projectCards = document.querySelectorAll('#projectGrid .flip');
+    filterBtns.forEach(btn => btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      projectCards.forEach(c => {
+        const tags = c.dataset.tags;
+        c.style.display = (f === 'all' || tags.includes(f)) ? '' : 'none';
+      });
+    }));
+
+    // particles canvas
+    const cv = document.getElementById('particles'); const cx = cv.getContext('2d');
+    let W, H; const pts = Array.from({length: 60}, () => ({x:Math.random(), y:Math.random(), vx:(Math.random()-.5)*.0007, vy:(Math.random()-.5)*.0007}));
+    function rs(){ W=cv.width=innerWidth; H=cv.height=innerHeight; }
+    rs(); addEventListener('resize', rs);
+    function draw(){
+      cx.clearRect(0,0,W,H);
+      for(const p of pts){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0||p.x>1)p.vx*=-1; if(p.y<0||p.y>1)p.vy*=-1;
+        cx.fillStyle='rgba(110,170,255,.45)';
+        cx.beginPath(); cx.arc(p.x*W,p.y*H,1.4,0,Math.PI*2); cx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    // EDI Workbench
+    const ediInput = document.getElementById('ediInput');
+    const lineNos = document.getElementById('lineNos');
+    const parsedView = document.getElementById('parsedView');
+    const outputView = document.getElementById('outputView');
+    const detailsView = document.getElementById('detailsView');
+    const errorList = document.getElementById('errorList');
+    const segmentTree = document.getElementById('segmentTree');
+    let pretty = true;
+
+    const samples = {
+      '850': `ISA*00*          *00*          *ZZ*SENDERID       *ZZ*RECEIVERID     *260201*1200*U*00401*000000125*0*T*:~\nGS*PO*SENDER*RECEIVER*20260201*1200*125*X*004010~\nST*850*0001~\nBEG*00*NE*PO123456**20260201~\nPO1*1*100*EA*12.45**VP*ITEM001~\nCTT*1~\nSE*6*0001~\nGE*1*125~\nIEA*1*000000125~`,
+      '837': `ISA*00*          *00*          *ZZ*CLM_SENDER     *ZZ*CLM_RECEIVER   *260201*1200*^*00501*000000321*1*T*:~\nGS*HC*CLM_SENDER*CLM_RECEIVER*20260201*1200*321*X*005010X222A1~\nST*837*0001*005010X222A1~\nBHT*0019*00*ABC123*20260201*1200*CH~\nSE*4*0001~\nGE*1*321~\nIEA*1*000000321~`,
+      '835': `ISA*00*          *00*          *ZZ*PAYOR          *ZZ*PROVIDER       *260201*1200*^*00501*000000654*1*T*:~\nGS*HP*PAYOR*PROVIDER*20260201*1200*654*X*005010X221A1~\nST*835*1001~\nBPR*I*1500*C*CHK*01*999999999*DA*123456789*1512345678**01*987654321*DA*111111111*20260201~\nSE*3*1001~\nGE*1*654~\nIEA*1*000000654~`,
+      '856': `ISA*00*          *00*          *ZZ*SHIPPER        *ZZ*RETAILER       *260201*1200*U*00401*000000777*0*T*:~\nGS*SH*SHIPPER*RETAILER*20260201*1200*777*X*004010~\nST*856*0001~\nBSN*00*SHIP12345*20260201*1200~\nSE*3*0001~\nGE*1*777~\nIEA*1*000000777~`,
+      '810': `ISA*00*          *00*          *ZZ*INVSENDER      *ZZ*INVRECVR       *260201*1200*U*00401*000000888*0*T*:~\nGS*IN*INVSENDER*INVRECVR*20260201*1200*888*X*004010~\nST*810*0001~\nBIG*20260201*INV1023*PO123456~\nSE*3*0001~\nGE*1*888~\nIEA*1*000000888~`
+    };
+
+    ediInput.value = state.lastEdi || samples['850'];
+
+    function syncLines() {
+      const lines = Math.max(1, ediInput.value.split('\n').length);
+      lineNos.textContent = Array.from({length: lines}, (_, i) => i + 1).join('\n');
+      lineNos.scrollTop = ediInput.scrollTop;
+    }
+
+    function detectDelims(s) {
+      const i = s.indexOf('ISA');
+      if (i === -1 || s.length < i + 106) return { e: '*', t: '~' };
+      return { e: s[i + 3] || '*', t: s[i + 105] || '~' };
+    }
+
+    function parseEDI(raw) {
+      const { e, t } = detectDelims(raw);
+      const segs = raw.replace(/\r/g, '').split(t).map(v => v.trim()).filter(Boolean);
+      const split = segs.map(x => x.split(e));
+      return { e, t, segs, split };
+    }
+
+    function validate(parsed) {
+      const errs = [];
+      const has = (id) => parsed.split.some(s => s[0] === id);
+      ['ISA','GS','ST','SE','GE','IEA'].forEach((id) => { if (!has(id)) errs.push(`Missing required segment: ${id}`); });
+      const st = parsed.split.findIndex(s => s[0] === 'ST');
+      const se = parsed.split.findIndex(s => s[0] === 'SE');
+      if (st !== -1 && se !== -1) {
+        const exp = +(parsed.split[se][1] || NaN);
+        const found = se - st + 1;
+        if (!Number.isNaN(exp) && exp !== found) errs.push(`SE segment count mismatch (expected ${exp}, found ${found})`);
+      }
+      return errs;
+    }
+
+    function highlight(parsed) {
+      return parsed.segs.map((seg, idx) => {
+        const parts = seg.split(parsed.e);
+        const lead = `<span class='seg'>${parts[0]}</span>`;
+        const rest = parts.slice(1).map(v => `<span class='elm'>${parsed.e}</span><span class='val'>${escapeHtml(v)}</span>`).join('');
+        return `${String(idx + 1).padStart(3,'0')} ${lead}${rest}<span class='elm'>${parsed.t}</span>`;
+      }).join('\n');
+    }
+
+    function renderTree(parsed) {
+      segmentTree.innerHTML = parsed.split.map((p, i) => {
+        const seg = p[0] || 'SEG';
+        const elems = p.slice(1).map((v, idx) => `<li>E${idx + 1}: ${escapeHtml(v)}</li>`).join('');
+        return `<details ${i<3?'open':''}><summary>${seg} (${p.length-1} elements)</summary><ul>${elems || '<li>No elements</li>'}</ul></details>`;
+      }).join('');
+    }
+
+    function parsedToJson(parsed) { return parsed.split.map(p => ({ segment: p[0], elements: p.slice(1) })); }
+    function parsedToXml(parsed) {
+      return `<edi>\n${parsed.split.map(p => `  <segment id="${p[0]}">\n${p.slice(1).map((v,i)=>`    <element index="${i+1}">${escapeHtml(v)}</element>`).join('\n')}\n  </segment>`).join('\n')}\n</edi>`;
+    }
+    function parsedToCsv(parsed) {
+      const rows = ['segment,position,value'];
+      parsed.split.forEach(p => p.slice(1).forEach((v,i)=>rows.push(`${p[0]},${i+1},"${String(v).replace(/"/g,'""')}"`)));
+      return rows.join('\n');
+    }
+
+    let lastParsed = null;
+    let lastType = 'txt';
+    function doParse() {
+      const raw = ediInput.value.trim();
+      if (!raw) return;
+      const parsed = parseEDI(raw);
+      lastParsed = parsed;
+      parsedView.innerHTML = highlight(parsed);
+      renderTree(parsed);
+      const errs = validate(parsed);
+      errorList.innerHTML = errs.length ? errs.map(e => `<li>${e}</li>`).join('') : '<li style="color:var(--success)">No validation errors detected.</li>';
+      const st = parsed.split.find(x => x[0] === 'ST') || [];
+      const isa = parsed.split.find(x => x[0] === 'ISA') || [];
+      detailsView.textContent = [
+        `Transaction Set: ${st[1] || 'N/A'}`,
+        `Control Number: ${st[2] || 'N/A'}`,
+        `Sender ID: ${isa[6] || 'N/A'}`,
+        `Receiver ID: ${isa[8] || 'N/A'}`,
+        `Segments: ${parsed.segs.length}`,
+        `Delimiters: element='${parsed.e}', terminator='${parsed.t}'`
+      ].join('\n');
+      saveState({ lastEdi: ediInput.value });
+      confettiBurst();
+    }
+
+    function showOutput(type) {
+      if (!lastParsed) doParse();
+      if (!lastParsed) return;
+      let out = '';
+      if (type === 'json') { out = pretty ? JSON.stringify(parsedToJson(lastParsed), null, 2) : JSON.stringify(parsedToJson(lastParsed)); }
+      if (type === 'xml') out = parsedToXml(lastParsed);
+      if (type === 'csv') out = parsedToCsv(lastParsed);
+      outputView.textContent = out;
+      lastType = type;
+    }
+
+    const debounced = (fn, ms = 350) => {
+      let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+    };
+
+    const onRealtime = debounced(() => { doParse(); }, 320);
+    ediInput.addEventListener('input', () => { syncLines(); onRealtime(); });
+    ediInput.addEventListener('scroll', () => { lineNos.scrollTop = ediInput.scrollTop; });
+    syncLines(); doParse();
+
+    document.getElementById('parseBtn').addEventListener('click', doParse);
+    document.getElementById('toJsonBtn').addEventListener('click', () => showOutput('json'));
+    document.getElementById('toXmlBtn').addEventListener('click', () => showOutput('xml'));
+    document.getElementById('toCsvBtn').addEventListener('click', () => showOutput('csv'));
+    document.getElementById('prettyToggle').addEventListener('click', (e) => {
+      pretty = !pretty; e.target.textContent = `Pretty: ${pretty ? 'ON' : 'OFF'}`;
+      if (lastType === 'json') showOutput('json');
+    });
+
+    document.getElementById('sampleSelect').addEventListener('change', (e) => {
+      ediInput.value = samples[e.target.value]; syncLines(); doParse();
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      ediInput.value = ''; syncLines();
+      parsedView.textContent = 'Waiting for parse...'; outputView.textContent = 'Choose conversion (JSON/XML/CSV)';
+      detailsView.textContent = 'N/A'; segmentTree.innerHTML = ''; errorList.innerHTML = '';
+    });
+
+    // upload + drag drop
+    document.getElementById('fileInput').addEventListener('change', (e) => {
+      const f = e.target.files[0]; if (!f) return;
+      const r = new FileReader(); r.onload = () => { ediInput.value = String(r.result || ''); syncLines(); doParse(); }; r.readAsText(f);
+    });
+    const drop = document.getElementById('dropZone');
+    ;['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, (e)=>{e.preventDefault(); drop.style.outline='2px dashed var(--accent)';}));
+    ;['dragleave','drop'].forEach(ev => drop.addEventListener(ev, (e)=>{e.preventDefault(); drop.style.outline='none';}));
+    drop.addEventListener('drop', (e)=>{
+      const f = e.dataTransfer.files[0]; if(!f) return;
+      const r=new FileReader(); r.onload=()=>{ediInput.value=String(r.result||''); syncLines(); doParse();}; r.readAsText(f);
+    });
+
+    // copy/download
+    document.getElementById('copyOut').addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(outputView.textContent); } catch {}
+    });
+    document.getElementById('downloadOut').addEventListener('click', () => {
+      const map = { json: 'application/json', xml: 'application/xml', csv: 'text/csv', txt: 'text/plain' };
+      const ext = lastType || 'txt';
+      const blob = new Blob([outputView.textContent], { type: map[ext] || 'text/plain' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `edi-output.${ext}`; a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    // keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (!e.ctrlKey) return;
+      if (e.key === 'Enter') { e.preventDefault(); doParse(); }
+      if (e.key.toLowerCase() === 'j') { e.preventDefault(); showOutput('json'); }
+      if (e.key.toLowerCase() === 'm') { e.preventDefault(); showOutput('xml'); }
+      if (e.key.toLowerCase() === 'l') { e.preventDefault(); showOutput('csv'); }
+    });
+
+    // draggable panel
+    const panel = document.getElementById('workbenchPanel');
+    const handle = document.getElementById('dragHandle');
+    let dragging = false, ox = 0, oy = 0;
+    handle.addEventListener('pointerdown', (e) => {
+      dragging = true; panel.style.position = 'absolute';
+      const r = panel.getBoundingClientRect(); ox = e.clientX - r.left; oy = e.clientY - r.top;
+      panel.setPointerCapture(e.pointerId);
+    });
+    handle.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const parent = document.querySelector('.workbench-wrap').getBoundingClientRect();
+      const x = Math.min(Math.max(0, e.clientX - parent.left - ox), parent.width - panel.offsetWidth);
+      const y = Math.min(Math.max(0, e.clientY - parent.top - oy), Math.max(0, parent.height - 80));
+      panel.style.left = x + 'px'; panel.style.top = y + 'px';
+    });
+    handle.addEventListener('pointerup', () => { dragging = false; });
+
+    // contact form
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('okMsg').style.display = 'block';
+      e.target.reset();
+      setTimeout(()=>document.getElementById('okMsg').style.display='none', 2400);
+    });
+
+    document.getElementById('printResume').addEventListener('click', () => window.print());
+
+    // simple confetti on successful parse
+    function confettiBurst() {
+      const burst = document.createElement('div');
+      burst.style.position = 'fixed'; burst.style.inset = '0'; burst.style.pointerEvents='none'; burst.style.zIndex='30';
+      for(let i=0;i<24;i++){
+        const p=document.createElement('i');
+        p.style.position='absolute'; p.style.left=(45+Math.random()*10)+'%'; p.style.top='20%';
+        p.style.width='5px'; p.style.height='10px'; p.style.background=['#59c3ff','#8a7dff','#34d399','#f59e0b'][i%4];
+        p.style.transform=`translate(${(Math.random()-0.5)*120}px, ${(Math.random()*160)+40}px) rotate(${Math.random()*360}deg)`;
+        p.style.opacity='0'; p.style.transition='all .65s ease';
+        burst.appendChild(p); requestAnimationFrame(()=>{p.style.opacity='1'; p.style.transform += ' scale(.1)';});
+      }
+      document.body.appendChild(burst); setTimeout(()=>burst.remove(), 700);
+    }
+  </script>
 </body>
 </html>
