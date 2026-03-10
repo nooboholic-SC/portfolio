@@ -1,197 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sachin Chauhan | EDI Developer</title>
-
-<style>
-
-body{
-    font-family: Arial, sans-serif;
-    margin:0;
-    background:#f4f6f8;
-    color:#333;
-}
-
-header{
-    background:#1f2937;
-    color:white;
-    padding:40px;
-    text-align:center;
-}
-
-header h1{
-    margin:0;
-    font-size:36px;
-}
-
-header p{
-    margin-top:10px;
-    font-size:18px;
-}
-
-.container{
-    width:85%;
-    margin:auto;
-    padding:30px 0;
-}
-
-section{
-    margin-bottom:40px;
-}
-
-h2{
-    border-left:5px solid #2563eb;
-    padding-left:10px;
-}
-
-.skills span{
-    background:#e5e7eb;
-    padding:8px 12px;
-    margin:5px;
-    display:inline-block;
-    border-radius:6px;
-}
-
-.project{
-    background:white;
-    padding:20px;
-    border-radius:8px;
-    margin-top:15px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
-
-footer{
-    text-align:center;
-    padding:20px;
-    background:#111827;
-    color:white;
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sachin Chauhan | EDI Portfolio</title>
+  <meta name="description" content="EDI developer portfolio with interactive EDI workbench." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div id="bgGrid" aria-hidden="true"></div>
 
-<header>
-<h1>Sachin Chauhan</h1>
-<p>EDI Developer | ANSI X12 | B2B Integration</p>
-</header>
+  <nav class="nav" aria-label="Main navigation">
+    <div class="wrap nav-inner">
+      <div class="brand">Sachin Chauhan • EDI Portfolio</div>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#ecosystem">Integration Ecosystem</a>
+        <a href="#workbench">EDI Workbench</a>
+      </div>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+    </div>
+  </nav>
 
-<div class="container">
+  <main class="wrap">
+    <section id="home" class="hero fade-up">
+      <div>
+        <h1>Sachin Chauhan</h1>
+        <p class="subtitle" id="typingSubtitle"></p>
+        <p class="muted">EDI specialist focused on retail X12 and healthcare HIPAA transactions, with strong production support, partner onboarding, and data quality automation.</p>
+        <div class="fab-row" style="margin-top:10px;">
+          <a class="btn" href="#workbench">Open EDI Workbench</a>
+          <button id="printResume" class="btn" type="button">Print / PDF Resume</button>
+        </div>
+      </div>
+      <aside class="glass" style="padding:14px;">
+        <h3 style="margin-top:0;">Contact</h3>
+        <p><strong>Phone:</strong> +91 9999887487</p>
+        <p><strong>Email:</strong> ssachinchauahan9990@gmail.com</p>
+        <p><strong>Location:</strong> Faridabad, India</p>
+        <p><strong>LinkedIn:</strong> linkedin.com/in/sachinchauhan</p>
+      </aside>
+    </section>
 
-<section>
-<h2>About Me</h2>
-<p>
-EDI Developer with 3+ years of experience in B2B integrations and ANSI X12 transaction processing.
-Experienced in Order-to-Cash lifecycle, trading partner onboarding, mapping development,
-and production support. Skilled in optimizing EDI workflows and handling high-volume data exchanges.
-</p>
-</section>
+    <section id="experience" class="section glass fade-up">
+      <div class="head"><h2>Timeline & Experience</h2></div>
+      <div class="timeline">
+        <article class="card tl-item">
+          <h3>Infoconn Systems, Faridabad</h3>
+          <p><strong>EDI Developer</strong> • Oct 2022 – Present</p>
+          <p>Designed and supported Retail X12 flows (850/856/810/940/875), improved AS2 connectivity, and reduced rejections by 25%.</p>
+        </article>
+        <article class="card tl-item">
+          <h3>Data Solutions India, Faridabad</h3>
+          <p><strong>EDI Operations Specialist</strong> • Mar 2022 – Oct 2022</p>
+          <p>Processed 200+ daily healthcare EDI transactions (837/835), resolved 997 acknowledgment failures, and documented issue playbooks.</p>
+        </article>
+        <article class="card tl-item">
+          <h3>Data Solutions India, Faridabad</h3>
+          <p><strong>EDI Support Associate</strong> • Aug 2021 – Mar 2022</p>
+          <p>Validated HIPAA submissions, supported onboarding tests, and monitored processing bottlenecks.</p>
+        </article>
+      </div>
+    </section>
 
-<section>
-<h2>Technical Skills</h2>
+    <section id="projects" class="section glass fade-up">
+      <div class="head"><h2>Project Showcase</h2></div>
+      <div class="project-toolbar" id="projectFilters">
+        <button class="btn" type="button" data-filter="all">All</button>
+        <button class="btn" type="button" data-filter="edi">EDI</button>
+        <button class="btn" type="button" data-filter="python">Python</button>
+        <button class="btn" type="button" data-filter="android">Android</button>
+      </div>
+      <div class="project-grid" id="projectGrid">
+        <article class="flip" data-tags="edi csharp"><div class="flip-inner"><div class="face front"><h3>Automated X12 to JSON Parser</h3><p>Standardized inconsistent 810 invoices before ERP ingestion.</p></div><div class="face back"><h3>Tech</h3><div class="chips"><span class="chip">.NET</span><span class="chip">C#</span><span class="chip">X12</span></div></div></div></article>
+        <article class="flip" data-tags="js"><div class="flip-inner"><div class="face front"><h3>AURA Discord Bot</h3><p>Reaction-based engagement and leaderboard automation.</p></div><div class="face back"><h3>Tech</h3><div class="chips"><span class="chip">JavaScript</span><span class="chip">JSON</span></div></div></div></article>
+        <article class="flip" data-tags="android"><div class="flip-inner"><div class="face front"><h3>Slide-Volume App</h3><p>Edge-swipe volume controller without hardware buttons.</p></div><div class="face back"><h3>Tech</h3><div class="chips"><span class="chip">Kotlin</span><span class="chip">Android</span></div></div></div></article>
+        <article class="flip" data-tags="python edi"><div class="flip-inner"><div class="face front"><h3>BombSquad Server Auth</h3><p>Server ID/password gate for controlled private access.</p></div><div class="face back"><h3>Tech</h3><div class="chips"><span class="chip">Python</span><span class="chip">Auth</span></div></div></div></article>
+      </div>
+    </section>
 
-<div class="skills">
-<span>ANSI X12</span>
-<span>OpenText</span>
-<span>IBM Sterling</span>
-<span>EDI Mapping</span>
-<span>AS2</span>
-<span>SFTP</span>
-<span>SQL</span>
-<span>Linux</span>
-<span>Production Support</span>
-<span>Git</span>
-<span>Jira</span>
-</div>
+    <section id="skills" class="section glass fade-up">
+      <div class="head"><h2>Tech Stack + Activity Heatmap + Skills Radar (Visual)</h2></div>
+      <div class="chips" style="margin-bottom:12px;">
+        <span class="chip">C#</span><span class="chip">Python</span><span class="chip">ANSI X12</span><span class="chip">HIPAA</span><span class="chip">AS2</span><span class="chip">SQL</span><span class="chip">JSON</span><span class="chip">CSV</span>
+      </div>
+      <div class="progress-grid">
+        <div class="prog-item"><label>X12 Mapping <span>92%</span></label><div class="bar"><i data-w="92%"></i></div></div>
+        <div class="prog-item"><label>AS2/SFTP Integration <span>88%</span></label><div class="bar"><i data-w="88%"></i></div></div>
+        <div class="prog-item"><label>Production Support <span>95%</span></label><div class="bar"><i data-w="95%"></i></div></div>
+        <div class="prog-item"><label>SQL Monitoring <span>84%</span></label><div class="bar"><i data-w="84%"></i></div></div>
+      </div>
+      <div class="charts" style="margin-top:12px;">
+        <div class="heatmap">
+          <h3>Activity Heatmap (GitHub commits/events)</h3>
+          <div class="fab-row" style="margin-bottom:8px;">
+            <input id="githubUser" aria-label="GitHub username" placeholder="GitHub username" value="sachinchauhan" />
+            <button id="loadGithubBtn" type="button">Load Activity</button>
+          </div>
+          <div class="heatmap-grid" id="heatmap"></div>
+        </div>
+        <div class="radar">
+          <h3>Skills Radar (Visual)</h3>
+          <svg viewBox="0 0 220 150" width="100%" height="140" aria-label="skills radar chart">
+            <polyline points="20,120 60,45 120,30 185,58 200,118 120,130 20,120" fill="rgba(80,160,255,.2)" stroke="#59c3ff" stroke-width="2" />
+            <text x="10" y="125" fill="currentColor" font-size="10">X12</text>
+            <text x="58" y="40" fill="currentColor" font-size="10">AS2</text>
+            <text x="117" y="25" fill="currentColor" font-size="10">SQL</text>
+            <text x="182" y="55" fill="currentColor" font-size="10">Mapping</text>
+            <text x="192" y="125" fill="currentColor" font-size="10">Support</text>
+          </svg>
+        </div>
+      </div>
+    </section>
 
-</section>
+    <section id="ecosystem" class="section glass fade-up">
+      <div class="head"><h2>Integration Ecosystem</h2></div>
+      <div class="card" style="overflow:auto;">
+        <svg viewBox="0 0 900 220" width="100%" height="220" aria-label="Integration ecosystem flow">
+          <defs><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#59c3ff"/></marker></defs>
+          <g fill="none" stroke="#59c3ff" stroke-width="2" marker-end="url(#arr)"><path d="M130 60 L260 60"/><path d="M360 60 L500 60"/><path d="M600 60 L740 60"/></g>
+          <g fill="#15284d" stroke="#6ea4ff"><rect x="40" y="35" width="90" height="40" rx="10"/><rect x="260" y="35" width="100" height="40" rx="10"/><rect x="500" y="35" width="100" height="40" rx="10"/><rect x="740" y="35" width="120" height="40" rx="10"/></g>
+          <g fill="#dbe8ff" font-size="12"><text x="66" y="60">ERP</text><text x="285" y="60">Mapper</text><text x="524" y="60">AS2/SFTP</text><text x="760" y="60">Partner</text></g>
+        </svg>
+      </div>
+    </section>
 
-<section>
-<h2>EDI Transaction Sets</h2>
-<ul>
-<li>850 – Purchase Order</li>
-<li>856 – Advance Ship Notice</li>
-<li>810 – Invoice</li>
-<li>997 – Functional Acknowledgment</li>
-<li>204 – Load Tender</li>
-<li>210 – Freight Invoice</li>
-<li>214 – Shipment Status</li>
-</ul>
-</section>
+    <section id="workbench" class="section glass fade-up">
+      <div class="head"><h2>EDI Workbench</h2><div class="muted">Shortcuts: <span class="kbd">Ctrl+Enter</span> Parse, <span class="kbd">Ctrl+J</span> JSON, <span class="kbd">Ctrl+M</span> XML, <span class="kbd">Ctrl+L</span> CSV</div></div>
+      <div class="workbench-wrap">
+        <div class="workbench" id="workbenchPanel" aria-label="Draggable EDI workbench">
+          <div class="wb-head" id="dragHandle"><strong>EDI Parser Panel</strong></div>
+          <div class="toolbar">
+            <label class="btn" for="sampleSelect">Sample</label>
+            <select id="sampleSelect" aria-label="Select EDI sample">
+              <option value="850">850 Purchase Order</option><option value="837">837 Claim</option><option value="835">835 Remittance</option><option value="856">856 ASN</option><option value="810">810 Invoice</option>
+            </select>
+            <button class="primary" id="parseBtn" type="button">Parse EDI</button>
+            <button id="toJsonBtn" type="button">EDI to JSON</button>
+            <button id="toXmlBtn" type="button">EDI to XML</button>
+            <button id="toCsvBtn" type="button">EDI to CSV</button>
+            <button id="prettyToggle" type="button">Pretty: ON</button>
+            <button id="copyOut" type="button">Copy Output</button>
+            <button id="downloadOut" type="button">Download Output</button>
+            <button id="clearBtn" type="button">Clear</button>
+            <label class="btn" for="fileInput">Upload .edi/.txt/.x12</label>
+            <input id="fileInput" type="file" accept=".edi,.txt,.x12" hidden />
+          </div>
 
-<section>
-<h2>EDI Architecture Experience</h2>
+          <div class="wb-grid">
+            <div class="panel"><h3>Input EDI</h3><div id="dropZone" class="editor-wrap"><pre class="line-nos" id="lineNos">1</pre><textarea id="ediInput" spellcheck="false"></textarea></div></div>
+            <div class="panel tree"><h3>Segment Tree</h3><div id="segmentTree" style="max-height:260px;overflow:auto;"></div></div>
+          </div>
 
-<p>
+          <div class="compare">
+            <div class="panel"><h3>Highlighted Parsed EDI</h3><pre id="parsedView">Waiting for parse...</pre></div>
+            <div class="panel"><h3>Converted Output</h3><pre id="outputView">Choose conversion (JSON/XML/CSV)</pre></div>
+          </div>
 
-ERP System → EDI Translator → AS2 / SFTP → Trading Partner → 997 Acknowledgment → ERP
+          <div class="wb-grid">
+            <div class="panel"><h3>Details</h3><pre id="detailsView">N/A</pre></div>
+            <div class="panel"><h3>Validation Errors</h3><ul id="errorList" class="error-list"></ul></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-</p>
+  <footer>© 2026 Sachin Chauhan • EDI Developer Portfolio</footer>
 
-<ul>
-<li>Trading partner onboarding</li>
-<li>Data mapping and transformation</li>
-<li>EDI validation and error handling</li>
-<li>Monitoring and logging</li>
-</ul>
-
-</section>
-
-<section>
-<h2>Key Projects</h2>
-
-<div class="project">
-<h3>Retail EDI Integration</h3>
-<p><b>Role:</b> EDI Developer</p>
-<ul>
-<li>Developed mappings for 850, 856, and 810 transactions</li>
-<li>Handled 997 acknowledgment reconciliation</li>
-<li>Managed production issues and partner communication</li>
-<li>Improved processing performance and reduced failures</li>
-</ul>
-</div>
-
-<div class="project">
-<h3>Logistics EDI Automation</h3>
-<p><b>Role:</b> EDI Developer</p>
-<ul>
-<li>Implemented 204, 210, and 214 transaction workflows</li>
-<li>Automated shipment status updates</li>
-<li>Optimized file processing and monitoring</li>
-</ul>
-</div>
-
-</section>
-
-<section>
-<h2>Production Support</h2>
-
-<ul>
-<li>Incident management and SLA handling</li>
-<li>Root cause analysis of EDI failures</li>
-<li>Monitoring transaction logs</li>
-<li>Resolving mapping and communication errors</li>
-</ul>
-
-</section>
-
-<section>
-<h2>Contact</h2>
-
-<p>Email: ssachinchauahan9990@gmail.com</p>
-<p>LinkedIn: linkedin.com</p>
-<p>Location: Faridabad, India</p>
-
-</section>
-
-</div>
-
-<footer>
-<p>© 2026 Sachin Chauhan | EDI Developer Portfolio</p>
-</footer>
-
+  <script src="script.js" defer></script>
 </body>
 </html>
